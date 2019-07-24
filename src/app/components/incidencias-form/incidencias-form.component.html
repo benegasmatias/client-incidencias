@@ -10,8 +10,8 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="inputGroupOffice">Oficina</label>
                         </div>
-                        <select class="custom-select" id="inputGroupOffice" [(ngModel)]="incidencia.oficina" >
-                          <option *ngFor="let office of offices" ></option>
+                        <select class="custom-select" id="inputGroupOffice" [(ngModel)]="incidencia.oficina">
+                          <option *ngFor="let office of officesList" [value]="office.id_office">{{office.name_office}}</option>
                         </select>
                       </div>
                       <div class="input-group mb-3">
@@ -29,8 +29,8 @@
                           <label class="input-group-text" for="inputGroupTechnicals">Tecnico</label>
                         </div>
                         <select class="custom-select" id="inputGroupTechnicals" [(ngModel)]="incidencia.tecnico">
-                          <option value="Emiliano">Emiliano</option>
-                          <option value="Fede">Fede</option>
+                          <option  *ngFor="let technical of technicalsList" [value]="technical.id_technical" >{{technical.name_tec}}</option>
+                          
                         </select>
                       </div>
                       <div class="input-group mb-3">
@@ -38,8 +38,7 @@
                           <label class="input-group-text" for="inputGroupProblems">Problema</label>
                         </div>
                         <select class="custom-select" id="inputGroupProblems" [(ngModel)]="incidencia.tipo_problema">
-                          <option value="1">Cambio de periferico</option>
-                          <option value="2">Red desconectada</option>
+                          <option *ngFor="let problem of problemsList" [value]="problem.id_problem">{{problem.name_problem}}</option>
                         </select>
                         <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" id="add-description" (click)="enableDescription()"><i class="fas fa-plus-circle"></i></button>
@@ -75,6 +74,7 @@
                         <button class="btn btn-success btn-block" (click)="saveNewIncidencia()">
                                 Guardar 
                         </button>
+
                        
 
                       
