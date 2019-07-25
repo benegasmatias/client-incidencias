@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+                  <!-- Card Header -->
+        <div class="card-header mb-2">
+            <h4 class="modal-title">Nuevo Usuario</h4>
+          </div>
+  
+          <div >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend d-inline-block">
+                <label class="input-group-text" for="inputNameUser">Nomb. y apellido</label>
+              </div>
+              <input type="text" id="inputNameUser" placeholder="nombre de usuario" class="d-inline-block form-control">
+            </div>
+  
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupOfficeUser">Oficina</label>
+              </div>
+              <select class="custom-select" id="inputGroupOfficeUser">
+                <option selected></option>
+                <option *ngFor="let office of officesList" [value]="office.id_office">{{office.name_office}}
+                </option>
+              </select>
+            </div>
+  
+  
+          </div>
+  
+          <!-- Modal footer -->
+            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Guardar usuario</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {IncidenciasFormComponent} from './components/incidencias-form/incidencias-form.component'
-import {TestComponent} from './components/test/test.component'
-
+import {IncidenciasFormComponent} from './components/incidencias-form/incidencias-form.component';
+import {UserFormComponent} from './components/users/user-form/user-form.component'
 
 const routes: Routes = [
   {
@@ -10,8 +9,8 @@ const routes: Routes = [
     component:IncidenciasFormComponent
   },
   {
-    path:'incidencia/test',
-    component:TestComponent
+    path:'users/add',
+    component:UserFormComponent
   }
 ];
 
