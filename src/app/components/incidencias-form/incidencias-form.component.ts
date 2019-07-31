@@ -30,7 +30,7 @@ export class IncidenciasFormComponent implements OnInit {
     expediente:'',
   };
 
-  officesList:Office[]=[];
+  officesList:Office[];
   technicalsList:Technical[];
   problemsList:Problem[];
 
@@ -45,7 +45,7 @@ export class IncidenciasFormComponent implements OnInit {
 
   ngOnInit() {
       //obtener offices
-      this.officesList=this.officeService.getOffices();
+      this.getOfficesComponent();
       console.log(this.officesList);
       //obtener technicals
       this.getTechnicalsComponent();
@@ -83,12 +83,21 @@ export class IncidenciasFormComponent implements OnInit {
       })
     }
 
-   /* private converToArray(res,objets) {
-      for(var r in res){
-        let x=res[r];
-        objets=x;
-      }
-    }*/
+    private getOfficesComponent(){
+      this.officeService.getOffices()
+      .subscribe(
+        res=>{
+          this.officesList=[];
+          console.log(res);
+            for(var office in res){
+              let off=res[office];
+              this.officesList=off;
+            }
+            console.log(this.officesList);
+          }
+      )
+
+    }
 
 
 

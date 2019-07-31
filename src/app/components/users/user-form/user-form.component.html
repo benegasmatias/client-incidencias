@@ -1,41 +1,65 @@
+<div class="alert alert-dismissible fade show" role="alert" [ngClass]="classAlert?'alert-success':'alert-warning'" *ngIf="alertShow">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
 <div class="row">
   <div class="col-md-6">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body" [formGroup]="userForm">
         <div class="form-group">
-                  <!-- Card Header -->
-        <div class="card-header mb-2">
-            <h4 class="modal-title">Nuevo Usuario</h4>
+          <!-- Card Header -->
+          <div class="card-header mb-2">
+            <h4 class="text-center">Nuevo Usuario</h4>
           </div>
-  
-          <div >
+
+          <div>
             <div class="input-group mb-3">
               <div class="input-group-prepend d-inline-block">
                 <label class="input-group-text" for="inputNameUser">Nomb. y apellido</label>
               </div>
-              <input type="text" id="inputNameUser" placeholder="nombre de usuario" class="d-inline-block form-control">
+              <input type="text" id="inputNameUser" placeholder="nombre de usuario" class="d-inline-block form-control"
+                formControlName="name_user" [(ngModel)]="user.name_user">
+
             </div>
-  
+            <div class="alert alert-danger text-center"
+              *ngIf="nameUser.invalid && (nameUser.dirty || nameUser.touched)">
+              <div *ngIf="nameUser.errors.required">
+                El nombre es requerido
+              </div>
+              <div *ngIf="nameUser.errors.minlength">
+                El nombre debe contener al menos 4 caracteres alfabeticos
+              </div>
+            </div>
+
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupOfficeUser">Oficina</label>
               </div>
-              <select class="custom-select" id="inputGroupOfficeUser">
+              <select class="custom-select" id="inputGroupOfficeUser" [(ngModel)]="user.office_id"
+                formControlName="id_office">
                 <option selected></option>
                 <option *ngFor="let office of officesList" [value]="office.id_office">{{office.name_office}}
                 </option>
               </select>
             </div>
-  
-  
+            <div class="alert alert-danger" *ngIf="Oficina.invalid && (Oficina.dirty || Oficina.touched)">
+              <p class="text-center">Debes seleccionar una oficina</p>
+            </div>
+
+
           </div>
-  
-          <!-- Modal footer -->
-            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Guardar usuario</button>
+
+          <button type="button" class="btn btn-success btn-block" (click)="saveNewUser()" [disabled]="!userForm.valid">
+
+            Guardar usuario
+          </button>
         </div>
 
       </div>
     </div>
   </div>
-
 </div>

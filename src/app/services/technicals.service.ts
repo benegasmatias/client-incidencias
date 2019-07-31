@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http'
 })
 export class TechnicalsService {
 
-  API_URI='http://localhost/gestionincidencias'
+  API_URI='/gestionincidencias'
   constructor(private http: HttpClient) { }
 
   getTechnicals(){
