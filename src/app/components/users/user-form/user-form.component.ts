@@ -7,6 +7,7 @@ import {Response} from '../../../models/response'
 import {OfficesService} from '../../../services/offices.service'
 import {UsersService} from '../../../services/users.service'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-form',
@@ -75,38 +76,35 @@ export class UserFormComponent implements OnInit {
   private saveUserFromService(){
     this.userService.addUser(this.user)
     .subscribe(
-      response=>{
+      (response:HttpResponse<Response>)=>{
         
-        console.log(response);
-        for(var res in response.body)
-        {
-          this.resp.setMsg(response.body["message"]);
-          this.resp.setStatus(response.body["status"]);
-        }
-        console.log(this.resp);
+        this.resp=response.body;
+        if(response.status==200){
+          this.classAlert=true;
+        }else this.classAlert=false;
+
  
       },
-      complete=>{
-        console.log(complete);
+      (err: HttpErrorResponse)=>{
+        if(err.error instanceof Error){
+          console.log('Client-side error')
+        }else{
+          console.log('Server-side error')
+        }
       }
+
+    
     )
   }
 
   saveNewUser(){
     //si el formulario se valido correctamente
     if(this.userForm.valid){
+      console.log(this.user);
       this.saveUserFromService();
-      console.log(this.resp);
-      if(this.resp.getStatus()==1)
-      {
-        
-        this.classAlert=true;
+      if(!this.classAlert===undefined){
+        this.alertShow=true;
       }
-     // else this.classAlert=false;
-
-      //mostrar el alerta de mensaje de respuesta
-      this.alertShow=this.classAlert===undefined;
-      console.log('Y Aqui que paso?');
     }
     //mostrar mensaje de campos incorrectos
     else{
