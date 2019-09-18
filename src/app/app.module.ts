@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { IncidenciasFormComponent } from './components/incidencias-form/incidencias-form.component';
 import { UserFormComponent } from './components/users/user-form/user-form.component';
+import { ListIncidenciasComponent } from './components/list-incidencias/list-incidencias.component';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { UserFormComponent } from './components/users/user-form/user-form.compon
     NavigationComponent,
     IncidenciasFormComponent,
     UserFormComponent,
+    ListIncidenciasComponent,
+    
   ],
   imports: [
     BrowserModule,

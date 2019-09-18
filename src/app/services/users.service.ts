@@ -18,4 +18,13 @@ export class UsersService {
   addUser(user:Users):Observable<HttpResponse<Response>>{
     return this.http.post<Response>(`${this.API_URI}/users/add.json`,user,{observe:'response'});
   }
+
+  getUsers()
+  {
+    return this.http.get(`${this.API_URI}/Users/getUsersForOffices/index.json`);
+  }
+
+  showUsersForOffice(id:number){
+    return this.http.get(`${this.API_URI}/Users/getUsersForOffices/${id}.json`);
+  }
 }

@@ -4,14 +4,20 @@ import { NgSelectOption } from '@angular/forms';
 
 //services
 import {OfficesService} from '../../services/offices.service';
-import {TechnicalsService} from '../../services/technicals.service'
-import {ProblemsService} from '../../services/problems.service'
+import {TechnicalsService} from '../../services/technicals.service';
+import {ProblemsService} from '../../services/problems.service';
+import {UsersService} from '../../services/users.service';
+import {SupportsService} from '../../services/supports.service';
 
 //model
 import {Office} from '../../models/offices'
 import {Technical}from '../../models/technical'
 import {Problem}from '../../models/problems'
-import { element } from 'protractor';
+import { Users } from 'src/app/models/users';
+import {Support} from '../../models/support';
+import { Supp } from 'src/app/models/supp';
+
+
 
 @Component({
   selector: 'app-incidencias-form',
@@ -20,19 +26,15 @@ import { element } from 'protractor';
 })
 export class IncidenciasFormComponent implements OnInit {
 
-  incidencia={
-    oficina:'',
-    usuario:'',
-    tecnico:'',
-    tipo_problema:'',
-    descripcion:'',
-    solucion_inmed:'',
-    expediente:'',
-  };
+  incidencia:Support=new Support();
+
+  sup:Supp=new Supp();
+  
 
   officesList:Office[];
   technicalsList:Technical[];
   problemsList:Problem[];
+  usersForOffice:Users[];
 
   show:boolean=false;
 
@@ -40,7 +42,10 @@ export class IncidenciasFormComponent implements OnInit {
     private officeService: OfficesService,
     private technicalService: TechnicalsService,
     private problemsService: ProblemsService,
-    private route: ActivatedRoute   
+    private route: ActivatedRoute,
+    private userService:UsersService,
+    private supportService:SupportsService
+
     ) { }
 
   ngOnInit() {
@@ -51,50 +56,42 @@ export class IncidenciasFormComponent implements OnInit {
       this.getTechnicalsComponent();
       //obtener problems
       this.getProblemsComponent();
+
+      this.getOfficesComponent();
+
+    }
+
+    private getUsersForOffice(id:number){
+      console.log(id);
+      this.userService.showUsersForOffice(id)
+      .subscribe(
+       (data)=>{
+         this.usersForOffice=data['users'];
+       },err=>
+       console.log(err)
+      );
+     
+      
     }
 
     private  getTechnicalsComponent(){
       this.technicalService.getTechnicals()
-      .subscribe(
-        res=>{
-          this.technicalsList=[];
-          console.log(res);
-            for(var technical in res){
-              let tech=res[technical];
-              this.technicalsList=tech;
-            }
-            console.log(this.technicalsList);
-          }
+      .subscribe(data=>this.technicalsList= data['technicals'],err=>console.log(err)
+      
       )
     }
 
     private getProblemsComponent(){
       this.problemsService.getProblems()
-      .subscribe(
-        res=>{
-          this.problemsList=[];
-          console.log(res);
-          for(var problem in res){
-            let prob=res[problem];
-            this.problemsList=prob;
-          }
-          console.log(this.problemsList);
-
-      })
+      .subscribe(data=>this.problemsList= data['problems'],err=>console.log(err)
+     
+      )
     }
 
     private getOfficesComponent(){
       this.officeService.getOffices()
-      .subscribe(
-        res=>{
-          this.officesList=[];
-          console.log(res);
-            for(var office in res){
-              let off=res[office];
-              this.officesList=off;
-            }
-            console.log(this.officesList);
-          }
+      .subscribe(data=>this.officesList= data['offices'],err=>console.log(err)
+        
       )
 
     }
@@ -104,7 +101,11 @@ export class IncidenciasFormComponent implements OnInit {
                 
 
   saveNewIncidencia(){
-    console.log(this.incidencia);
+    
+    this.supportService.addSupport(this.sup).subscribe(res=>console.log(res),err=>console.log(err));
+    console.log(this.sup);
+
+    this.sup=new Supp();
   }
 
   enableDescription(){
