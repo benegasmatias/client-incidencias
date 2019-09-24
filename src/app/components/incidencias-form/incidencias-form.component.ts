@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NgSelectOption } from '@angular/forms';
+
 
 //services
 import {OfficesService} from '../../services/offices.service';
@@ -42,7 +41,7 @@ export class IncidenciasFormComponent implements OnInit {
     private officeService: OfficesService,
     private technicalService: TechnicalsService,
     private problemsService: ProblemsService,
-    private route: ActivatedRoute,
+    
     private userService:UsersService,
     private supportService:SupportsService
 
@@ -110,6 +109,10 @@ export class IncidenciasFormComponent implements OnInit {
 
   enableDescription(){
    this.show= (this.show==true?false:true);
+  }
+
+  openUser(open){
+      
   }
 
 }

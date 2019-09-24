@@ -1,17 +1,37 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {IncidenciasFormComponent} from './components/incidencias-form/incidencias-form.component';
-import {UserFormComponent} from './components/users/user-form/user-form.component'
+import { NeedAuthGuard } from './NeedAuthGuard';
 
 const routes: Routes = [
+
+  {
+    path: '',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  }
+  /*
+  {
+    path:'',
+    component:LoginComponent,
+    pathMatch: 'full'
+  },
+  {path:'incidencia',
+component:NavigationComponent,
+canActivate:[NeedAuthGuard] 
+},
   {
     path:'incidencia/add',
-    component:IncidenciasFormComponent
+    component:IncidenciasFormComponent,
+    canActivate: [NeedAuthGuard] 
   },
   {
     path:'users/add',
-    component:UserFormComponent
-  }
+    component:UserFormComponent,
+    canActivate: [NeedAuthGuard] 
+  },{
+    path:'incidencia/list',
+    component: ListIncidenciasComponent,
+    canActivate: [NeedAuthGuard] 
+  }*/
 ];
 
 @NgModule({

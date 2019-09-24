@@ -1,5 +1,43 @@
-<select  class="custom-select" id="inputGroupOffice"   >
-    <option *ngFor="let I of incidencias"  [value]="I.id_support">{{I.id_support}}
-       
-    </option>
-  </select>
+
+      <div class="container">
+                  <h1>Listado Posts</h1>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>id</th>
+                            <th>Oficina</th>
+                            <th>Tecnico</th>
+                            <th>Usuario</th>
+                            <th>Problema</th>
+                            <th>Descripcion</th>
+                            <th>Fecha de atencion</th>
+                            <th>Expediente</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let post of incidencias | filter:filterPost ; index as i">
+                            <td>{{i+1}}</td>
+                            <td>{{post.name_office}}</td>
+                            <td>{{post.name_tec}}</td>
+                            <td>{{post.name_user}}</td>
+                            <td>{{post.name_problem}}</td>
+                            <td>{{post.description}}</td>
+                            <td>{{post.date_support | date:"MM/dd/yy"}}</td>
+                            <td>{{post.proccedings_support | json}}</td>
+                          
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+           

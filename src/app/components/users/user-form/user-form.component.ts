@@ -29,7 +29,7 @@ export class UserFormComponent implements OnInit {
   officesList:Office[];
   userForm:FormGroup;
   //objetos
-  user=new Users('',0);
+  user=new Users();
   resp=new Response('','');
 
 

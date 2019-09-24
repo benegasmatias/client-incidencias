@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+//component
+
+
 //service
 import {IncidenciasService} from '../../services/incidencias.service';
 
 //models
-import {Supp} from '../../models/supp';
+
+import { Incidencia } from 'src/app/models/incidencia';
+
 
 
 
@@ -14,18 +19,31 @@ import {Supp} from '../../models/supp';
   styleUrls: ['./list-incidencias.component.css']
 })
 export class ListIncidenciasComponent implements OnInit {
- incidencias:Supp[];
+ incidencias:Incidencia[];
+ filterPost:'';
  
   constructor(private incidenciasService:IncidenciasService,
    ) { }
 
   ngOnInit() {
+
+    console.log(this.incidencias)
+   this.getIncidencias();
+   console.log(this.filterPost)
    
   }
 
 
-  getIncidencias(){
-    this.incidenciasService.getIncidencias().subscribe(data=>this.incidencias=data['supports'],err=>console.log(err));
-  }
+  public getIncidencias(){
+    this.incidenciasService.getIncidencias().subscribe(
+      (data)=>{
+        console.log(data)
+        this.incidencias=data["incidencias"]
+      },er=>console.log(er)
+    )
+     
+   }
+
+  
 
 }

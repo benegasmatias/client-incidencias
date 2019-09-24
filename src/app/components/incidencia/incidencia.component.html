@@ -1,0 +1,19 @@
+    
+     
+     <div class="card mb-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3>{{ incidencia.name_office }}</h3>
+                <div>
+                    <button (click)="incidencia.hide = !incidencia.hide" class="btn btn-primary">
+                        Show
+                    </button>
+                    <button (click)="deleteIncidencia()" class="btn btn-danger">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div class="card-body" [hidden]="!incidencia.hide">
+                <p>{{incidencia.description}}</p>
+            </div>
+        </div>
+      

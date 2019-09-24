@@ -1,32 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
-import{FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+//components
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { IncidenciasFormComponent } from './components/incidencias-form/incidencias-form.component';
-import { UserFormComponent } from './components/users/user-form/user-form.component';
-import { ListIncidenciasComponent } from './components/list-incidencias/list-incidencias.component';
+import { ErrorPaginaComponent } from './components/error-pagina/error-pagina.component';
+import {NeedAuthGuard} from './NeedAuthGuard';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
-    IncidenciasFormComponent,
-    UserFormComponent,
-    ListIncidenciasComponent,
-    
+    ErrorPaginaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    CommonModule,HttpClientModule
   ],
-  providers: [],
+  providers: [NeedAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
