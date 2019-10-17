@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild ,ElementRef} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 //component
@@ -14,7 +14,7 @@ import {InventarioServiceService} from '../../services/inventario-service.servic
 import { Incidencia } from 'src/app/models/incidencia';
 import {Inventario} from '../../models/inventario'
 import{LoginUser} from '../../models/login-user'
-import * as jsPDF from 'jspdf'
+
 
 
 
@@ -119,15 +119,7 @@ inventario=false;
 
 
 
-  public descargaPDF(){
 
-    var doc = new jsPDF()
-    doc.setFontSize(10)
-    doc.formHTML($('#contenido').get(0),10,10)
-    //doc.fromHTML($('#contenido').get(0),10,10);
-    doc.save("laconchadetumadre.pdf")
-
-  }
   
 
   
