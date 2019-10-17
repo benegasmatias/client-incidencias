@@ -29,14 +29,14 @@ export class UserFormComponent implements OnInit {
   officesList:Office[];
   userForm:FormGroup;
   //objetos
-  user=new Users();
-  resp=new Response('','');
+  user: Users =new Users();
+  resp: Response=new Response('','');
 
 
   //constructor
   constructor(
-    private officeService:OfficesService,
-    private userService:UsersService
+    protected officeService:OfficesService,
+    protected userService:UsersService
     ) { 
       this.userForm=this.createFormGroup();
     }
@@ -58,17 +58,12 @@ export class UserFormComponent implements OnInit {
   private getOfficesComponent(){
     this.officeService.getOffices()
     .subscribe(
-      res=>{
-        this.officesList=[];
-        console.log(res);
-          for(var office in res){
-            let off=res[office];
-            this.officesList=off;
-          }
-          console.log(this.officesList);
-        }
+      (data)=>{
+        this.officesList=data['offices']
+        },
+        ()=>{},
+        ()=>{}
     )
-
   }
 
   
@@ -100,7 +95,6 @@ export class UserFormComponent implements OnInit {
   saveNewUser(){
     //si el formulario se valido correctamente
     if(this.userForm.valid){
-      console.log(this.user);
       this.saveUserFromService();
       if(!this.classAlert===undefined){
         this.alertShow=true;
@@ -116,11 +110,11 @@ export class UserFormComponent implements OnInit {
     this.userForm.reset();  
   }
 
-  private get nameUser(){
+  get nameUser(){
     return this.userForm.get('name_user');
   }
 
-  private get Oficina(){
+  get Oficina(){
     return this.userForm.get('id_office');
   }
 

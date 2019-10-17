@@ -4,7 +4,7 @@ export class Support {
     tecnico:'';
     tipo_problema:'';
     descripcion:'';
-    solucion_inmed:'';
+    solucion_inmed:string;
     expediente:'';
   
 }

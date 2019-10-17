@@ -29,17 +29,24 @@ export class LoginComponent implements OnInit {
 
    this.loginService.login(this.user).
    subscribe(data=>{
-     console.log(data)
      this.loginService.setUser(this.user) 
      u=data['0'] 
-     console.log(u)
      this.loginService.setToken(u.id)
      this.route.navigateByUrl('incidencia')
     
     },
    err=>{console.log(err)
-    this.isloged=true })
+    this.isloged=true },
+    ()=>{})
   }
- 
+
+  
+  pulsar(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        var boton = document.getElementById("wea");
+      
+    }
+}
 
 }

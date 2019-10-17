@@ -1,30 +1,30 @@
-<div class="row">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-body">
+<div class="card border-primary  mt-3 mx-auto" style="max-width: 540px;">
+<div class="row no-gutters">
+  <div class="col">
         <div class="form-group">
-          <div class="card-header bg-dark mb-2">
-            <h1 class="text-center text-white text-muted text-capitalize"> Nueva atencion</h1>
+          <div class="card-header  ">
+            <h2 class="text-center text-white titulo ">{{titulo}}</h2>
           </div>
+          <div class="card-body">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupOffice">Oficina</label>
+              <label class="input-group-text contenido" for="inputGroupOffice">Oficina</label>
             </div>
-            <select  class="custom-select" id="inputGroupOffice" [(ngModel)]="incidencia.oficina" (change)="getUsersForOffice(incidencia.oficina)" >
+            <select  class="custom-select contenido" id="inputGroupOffice" [(ngModel)]="incidencia.oficina" (change)="getUsersForOffice(incidencia.oficina)" >
               <option *ngFor="let office of officesList"  [value]="office.id_office">{{office.name_office}}</option>
             </select>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupUsers">Usuario</label>
+              <label class="input-group-text contenido" for="inputGroupUsers">Usuario</label>
           
             </div>
-            <select class="custom-select" id="inputGroupUsers" [(ngModel)]="sup.user_id" required>
+            <select class="custom-select contenido" id="inputGroupUsers" [(ngModel)]="sup.user_id" required>
               <option *ngFor="let user of usersForOffice" [value]='user.id_user'>{{user.name_user}}</option>
             </select>
             <div class="input-group-append">
                 <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-plus-circle"></i>
+                    <i class="fas fa-plus-circle contenido"></i>
                   </button>
                   
                   <!-- Modal -->
@@ -32,8 +32,8 @@
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          
+                            <button type="button" class="close contenido" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
@@ -41,7 +41,7 @@
                              <app-user-form ></app-user-form>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Close</button>
                           </div>
                         </div>
                       </div>
@@ -55,9 +55,9 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupTechnicals">Tecnico</label>
+              <label class="input-group-text contenido" for="inputGroupTechnicals">Tecnico</label>
             </div>
-            <select class="custom-select" id="inputGroupTechnicals" [(ngModel)]="sup.technical_id">
+            <select class="custom-select contenido" id="inputGroupTechnicals" [(ngModel)]="sup.technical_id">
               <option *ngFor="let technical of technicalsList" [value]="technical.id_technical">{{technical.name_tec}}
               </option>
 
@@ -65,18 +65,18 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupProblems">Problema</label>
+              <label class="input-group-text contenido" for="inputGroupProblems">Problema</label>
             </div>
-            <select class="custom-select" id="inputGroupProblems" [(ngModel)]="sup.problem_id">
+            <select class="custom-select contenido" id="inputGroupProblems" [(ngModel)]="sup.problem_id">
               <option *ngFor="let problem of problemsList" [value]="problem.id_problem">{{problem.name_problem}}
               </option>
             </select>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">Descripcion</span>
+              <span class="input-group-text contenido">Descripcion</span>
             </div>
-            <textarea class="form-control" aria-label="With textarea" placeholder="Agregue aqui detalles del problema"
+            <textarea class="form-control contenido" aria-label="With textarea" placeholder="Agregue aqui detalles del problema"
               [(ngModel)]="sup.description"></textarea>
           </div>
 
@@ -85,33 +85,43 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupProblems">Solucion inmediata</label>
+              <label class="input-group-text contenido" for="inputGroupProblems">Solucion inmediata</label>
             </div>
-            <select class="custom-select" id="inputGroupProblems" [(ngModel)]="incidencia.solucion">
-              <option value="Si">Si</option>
-              <option value="No">No</option>
+            <select class="custom-select contenido" id="inputGroupProblems" [(ngModel)]="incidencia.solucion_inmed">
+              <option value='Si'>Si</option>
+              <option value='No'>No</option>
             </select>
           </div>
-          <div class="input-group mb-3" *ngIf="incidencia.solucion=='No'">
+
+
+          <div class="input-group mb-3" *ngIf="incidencia.solucion_inmed==='No'">
             <div class="input-group-prepend d-inline-block">
-              <label class="input-group-text" for="inputExpediente">Expediente</label>
+              <label class="input-group-text contenido" for="inputExpediente">Expediente</label>
             </div>
             <input type="number" id="inputExpediente" placeholder="Ingresar numero de expediente"
-              class="d-inline-block form-control" [(ngModel)]="sup.proccedings_support">
+              class="d-inline-block form-control contenido" [(ngModel)]="sup.proccedings_support">
           </div>
 
-              <button class="btn btn-success btn-block" (click)="saveNewIncidencia()">
-                  Guardar atención
-              </button>
+        </div>
+        <button *ngIf='bandera' class="btn btn-primary col-md-5 offset-md-4"  (click)="saveNewIncidencia()">
+            {{button}}
+        </button>
 
+         <div class="row" *ngIf='bandera===false' >
 
-
-
-
-
+            <button class="btn btn-success  col-md-4 " (click)="editarIncidencia()">
+                {{button}}
+            </button> 
+            <button  class="btn btn-danger  col-md-4 offset-md-4 contenido" (click)="eliminarIncidencia()">
+                Eliminar Incidencia
+             </button>
+            
+         </div>
 
         </div>
-      </div>
-    </div>
+     
+   
   </div>
+</div>
+
 </div>

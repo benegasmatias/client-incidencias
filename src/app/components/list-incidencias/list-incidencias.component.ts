@@ -1,13 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild ,ElementRef} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 //component
 
 
 //service
 import {IncidenciasService} from '../../services/incidencias.service';
+import {LoginService} from '../../services/login.service';
+import {InventarioServiceService} from '../../services/inventario-service.service'
 
 //models
 
 import { Incidencia } from 'src/app/models/incidencia';
+import {Inventario} from '../../models/inventario'
+import{LoginUser} from '../../models/login-user'
+import * as jsPDF from 'jspdf'
+
+
+
+
+
+
+
+
 
 
 
@@ -19,30 +34,101 @@ import { Incidencia } from 'src/app/models/incidencia';
   styleUrls: ['./list-incidencias.component.css']
 })
 export class ListIncidenciasComponent implements OnInit {
+inventarios:Inventario[]
+
+
+inventario=false;
+
+
  incidencias:Incidencia[];
- filterPost:'';
+ filterPost="";
+ incidenciaEdit:Incidencia;
+
+
+ habilitarEdit=false;
+ Nologged=false;
+
+ user:LoginUser=new LoginUser();
  
-  constructor(private incidenciasService:IncidenciasService,
+  constructor(
+    private incidenciasService:IncidenciasService,
+    private loginService:LoginService,
+    private activatedRoute:ActivatedRoute,
+    private inventarioService:InventarioServiceService
    ) { }
 
   ngOnInit() {
 
-    console.log(this.incidencias)
-   this.getIncidencias();
-   console.log(this.filterPost)
-   
+  const params = this.activatedRoute.snapshot.params;
+  
+   if(params.id){
+    
+    this.inventario=true;
+     this.getInventario();
+     
+     this.habilitarEdit=false;
+     this.Nologged=false ;
+
+   }else{ 
+
+
+    this.getIncidencias();
+    this.habilitarEdit=false;
+    this.Nologged=false  ;
+    }
   }
 
 
   public getIncidencias(){
     this.incidenciasService.getIncidencias().subscribe(
       (data)=>{
-        console.log(data)
         this.incidencias=data["incidencias"]
-      },er=>console.log(er)
+      },e=>console.log(e),
+      ()=>{}
     )
      
    }
+
+   loginEdit(){
+ 
+    this.loginService.login(this.user).
+    subscribe(
+      datas=>{
+        this.habilitarEdit=true; 
+        this.Nologged=false     
+      },
+      err=>this.Nologged=true,
+      ()=>{}
+    )
+  }
+
+  //------Inventarios
+
+  
+  public getInventario(){
+    this.inventarioService.getInventario()
+    .subscribe(
+      data=>
+        this.inventarios=data['inventarios']
+      ,err=>console.log(err),
+      ()=>{}
+    )
+  }
+
+  //------generador de pdf
+
+
+
+  public descargaPDF(){
+
+    var doc = new jsPDF()
+    doc.setFontSize(10)
+    doc.formHTML($('#contenido').get(0),10,10)
+    //doc.fromHTML($('#contenido').get(0),10,10);
+    doc.save("laconchadetumadre.pdf")
+
+  }
+  
 
   
 
