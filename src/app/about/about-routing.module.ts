@@ -5,6 +5,10 @@ import { ListIncidenciasComponent } from '../components/list-incidencias/list-in
 import { PrincipalComponent } from '../components/principal/principal.component';
 import {IncidenciasFormComponent} from '../components/incidencias-form/incidencias-form.component'
 import { InventoriesFormComponent } from '../components/inventories-form/inventories-form.component';
+import { ListInventariosComponent } from '../components/list-inventarios/list-inventarios.component';
+import { ListTonersComponent } from '../components/list-toners/list-toners.component';
+import { ListEntregaTonersComponent } from '../components/list-entrega-toners/list-entrega-toners.component';
+import { TonerFormComponent } from '../components/toner-form/toner-form.component';
 
 
 
@@ -16,6 +20,21 @@ const routes: Routes = [
     path:'',
     component:PrincipalComponent,
     children: [
+      {
+        path:'addToners',
+        component: TonerFormComponent
+     },
+      {
+         path:'listToners',
+         component: ListTonersComponent
+      },{
+        path:'listSalidasToner',
+        component: ListEntregaTonersComponent
+      },
+      {
+        path:'listInventario',
+        component: ListInventariosComponent
+      },
       { 
         path:'list',
         component:ListIncidenciasComponent
@@ -24,16 +43,16 @@ const routes: Routes = [
         component:ListIncidenciasComponent
         
       },{ 
-        path:'list/1/editinventario/:id/:cabinet/:computer/:ram/:disk/:micro/:placa/:id_cabinet/:ip',
+        path:'editinventario/:id/:cabinet/:computer/:ram/:disk/:micro/:placa/:id_cabinet/:ip',
         component: InventoriesFormComponent
       },{
-        path:'list/1/editinventario/:id/:laptop/:id_laptop/:ram/:disk',
+        path:'editinventario/:id/:laptop/:id_laptop/:ram/:disk',
         component:InventoriesFormComponent   
       },{
-        path:'list/1/editinventario/:id/:monitor/:id_monitor/:serie',
+        path:'editinventario/:id/:monitor/:id_monitor/:serie',
         component:InventoriesFormComponent   
       },{
-        path:'list/1/editinventarioi/:id/:printer/:id_printer/:toner/:number_printer',
+        path:'editinventarioi/:id/:printer/:id_printer/:toner/:number_printer',
         component:InventoriesFormComponent   
       }
       ,{
@@ -43,14 +62,14 @@ const routes: Routes = [
         path:'addInventario',
         component: InventoriesFormComponent
       },{ 
-        path:'edit/:id/:proccedings/:technical/:problem/:office/:user/:description',
+        path:'list/edit/:id/:proccedings/:technical/:problem/:office/:user/:description',
         component: IncidenciasFormComponent
       }, {
-        path:'edit/:id/:technical/:problem/:office/:user/:description',
+        path:'list/edit/:id/:technical/:problem/:office/:user/:description',
         component: IncidenciasFormComponent
       },
       {
-        path:'edit/:id/:technical/:problem/:office/:user',
+        path:'list/edit/:id/:technical/:problem/:office/:user',
         component: IncidenciasFormComponent
       }
     

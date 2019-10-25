@@ -1,18 +1,21 @@
 import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+
 
 //component
 
 
 //service
 import {IncidenciasService} from '../../services/incidencias.service';
+
+//32132132
 import {LoginService} from '../../services/login.service';
-import {InventarioServiceService} from '../../services/inventario-service.service'
+
 
 //models
 
 import { Incidencia } from 'src/app/models/incidencia';
-import {Inventario} from '../../models/inventario'
+//212312313213123
+
 import{LoginUser} from '../../models/login-user'
 
 
@@ -34,10 +37,7 @@ import{LoginUser} from '../../models/login-user'
   styleUrls: ['./list-incidencias.component.css']
 })
 export class ListIncidenciasComponent implements OnInit {
-inventarios:Inventario[]
 
-
-inventario=false;
 
 
  incidencias:Incidencia[];
@@ -52,30 +52,16 @@ inventario=false;
  
   constructor(
     private incidenciasService:IncidenciasService,
-    private loginService:LoginService,
-    private activatedRoute:ActivatedRoute,
-    private inventarioService:InventarioServiceService
+    private loginService:LoginService
    ) { }
 
   ngOnInit() {
 
-  const params = this.activatedRoute.snapshot.params;
   
-   if(params.id){
-    
-    this.inventario=true;
-     this.getInventario();
-     
-     this.habilitarEdit=false;
-     this.Nologged=false ;
-
-   }else{ 
-
-
     this.getIncidencias();
     this.habilitarEdit=false;
     this.Nologged=false  ;
-    }
+    
   }
 
 
@@ -102,18 +88,7 @@ inventario=false;
     )
   }
 
-  //------Inventarios
 
-  
-  public getInventario(){
-    this.inventarioService.getInventario()
-    .subscribe(
-      data=>
-        this.inventarios=data['inventarios']
-      ,err=>console.log(err),
-      ()=>{}
-    )
-  }
 
   //------generador de pdf
 

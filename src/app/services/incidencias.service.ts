@@ -30,5 +30,13 @@ export class IncidenciasService {
   editIncidencia(id,u:Supp){
     return this.http.patch(`${this.API_URI}/Supports/edit/${id}.json`,u);
   }
+
+  getToners(){
+    return this.http.get(`${this.API_URI}/Toners/index.json`)
+  }
+
+  getPrinters(){
+    return this.http.get(`${this.API_URI}/Printers/index.json`);
+  }
   
 }

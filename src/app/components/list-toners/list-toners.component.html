@@ -1,0 +1,137 @@
+ 
+  <h3 class="titulo">Listado de Toners</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control contenido" name="filterTonerStock" placeholder="Buscar por Modelo de toner"
+          [(ngModel)]="filterTonerStock">
+
+      </div>
+    </div>
+    <div *ngIf="habilitarEdit===false" class="col-md-6">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary contenido "  data-toggle="modal"
+        data-target="#exampleModalCenter">
+        Habilitar Edicion
+      </button>
+    </div>
+    <div class="alert alert-danger contenido" *ngIf="Nologged">Usuario o contraseña Erronea</div>
+  </div>
+
+      <table class="table table-striped " >
+        <thead >
+          <tr class="contenido" id="header">
+            <th>id</th>
+            <th>Toner</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let toner of TonerStock | filtoner:filterTonerStock ; index as i" class="contenido" >
+
+            <td>{{i+1}}</td>
+            <td>{{toner.toner_model}}</td>
+            <th>{{toner.type}}</th>
+            <td>{{toner.quantity}}</td>
+       
+            
+            
+              <!--Boton o botones para ir a formulario de Inventarios-->
+              <td *ngIf="habilitarEdit">
+                <button type="button" class="btn btn-outline-secondary contenido"  name="agregatoner" (click)="agregaToner(toner)" data-toggle="modal" data-target="#modalToner">
+                    <i class="fas fa-plus-circle"></i>
+                  </button>
+              </td>
+            
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Modal Login -->
+<div class="modal fade contenido" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Verificacion</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" name="username" [(ngModel)]="user.username"
+          aria-describedby="inputGroup-sizing-default">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" name="password" [(ngModel)]="user.password"
+          aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" (click)="loginEdit()" data-dismiss="modal">Confirmar
+        Acceso</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!--Toner-->
+<div class="modal fade contenido" id="modalToner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered contenido" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title titulo" id="exampleModalLongTitle contenido">Editando Toner</h5>
+
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="input-group mb-3">
+        <div class="input-group-append contenido">
+         <label >{{toner.toner_model}}</label>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text contenido" for="inputGroupTechnicals">Tipo</label>
+          </div>
+
+          <select class="custom-select contenido" name="type" id="inputGroupTechnicals" [(ngModel)]="toner.id_type">
+            <option *ngFor="let toner of  typesToner" [value]="toner.id_type">{{toner.type}}
+            </option>
+          </select>
+
+        </div>
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <label class="input-group-text contenido" for="inputGroupTechnicals">Cantidad</label>
+            </div>
+        <input type="number" class="form-control contenido" placeholder="Capacidad" 
+          name="quantity" [(ngModel)]="toner.quantity">
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="btn btn-primary contenido " data-dismiss="modal" (click)="AumentarStock()">Guardar</button>
+    </div>
+  </div>
+</div>
+</div>
+    
+  
+    
+  

@@ -1,18 +1,2 @@
-@media screen and (max-width: 700px){
-    .contenido{
-    font-size:12px;
-    }
-    .titulo{
-    font-size:18px;
-    }
-    }
-/* Por debajo de 400px */
-@media screen and (max-width: 400px){
-.contenido{
-font-size:10px;
-}
-.titulo{
-font-size:16px;
-}
-}
+
     

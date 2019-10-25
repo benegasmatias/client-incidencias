@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 //modelos
 import {Users} from '../../../models/users'
 import {Office} from '../../../models/offices'
@@ -22,7 +22,7 @@ export class UserFormComponent implements OnInit {
  
 
   /*variables locales*/
-
+  @Input() office
   //esta variable se usa para añadir clase de exito o falla en el alerta despues que ocurre el evento de guardar un nuevo usuario
   classAlert:boolean;
   alertShow:boolean=false;

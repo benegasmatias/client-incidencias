@@ -1,0 +1,50 @@
+<div class="card border-primary  mt-3 mx-auto" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col">
+            <div class="form-group">
+              <div class="card-header  ">
+                <h2 class="text-center text-white titulo ">Agregar un toner</h2>
+              </div>
+              <div class="card-body">
+             
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text contenido" for="inputGroupUsers" >Toner </label>
+                  
+                </div>              
+                <input class="custom-select contenido" id="inputGroupProblems" placeholder="Modelo de Toner" [(ngModel)]="toner.toner_model">
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text contenido" for="inputGroupTechnicals">Tipo</label>
+                </div>
+                <select class="custom-select contenido" id="inputGroupTechnicals" [(ngModel)]="toner.type">
+                  <option *ngFor="let type of type_toners" [value]="type.id">{{type.type}}
+                  </option>
+    
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text contenido" for="inputGroupProblems">Cantidad</label>
+                </div>
+                <input class="custom-select contenido" id="inputGroupProblems" placeholder="Cantidad Disponible" [(ngModel)]="toner.quantity">
+              
+              </div>
+          
+    
+            </div>
+            <button  class="btn btn-primary col-md-4 offset-md-4"  (click)="addToner()">
+                Guardar Toner
+            </button>
+    
+        
+    
+            </div>
+         
+       
+      </div>
+    </div>
+    
+    </div>

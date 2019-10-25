@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import { Supp } from '../models/supp';
+import { SalidaToner, Tonerr } from '../models/toner';
 
 
 @Injectable({
@@ -18,4 +19,13 @@ export class SupportsService {
    
     return this.http.post(`${this.API_URI}/Supports/add.json`,sup);
   }
+  addSalida(dep:SalidaToner){
+    console.log(dep)
+    return this.http.post(`${this.API_URI}/DeparturesToners/add.json`,dep);
+  }
+  setCantToner(id:string,toner:Tonerr){
+    console.log(toner)
+    return this.http.patch(`${this.API_URI}/Toners/edit/${id}.json`,toner);
+  }
+ 
 }

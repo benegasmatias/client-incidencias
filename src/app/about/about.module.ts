@@ -11,12 +11,19 @@ import { IncidenciasFormComponent } from '../components/incidencias-form/inciden
 import { UserFormComponent } from '../components/users/user-form/user-form.component';
 import { ListIncidenciasComponent } from '../components/list-incidencias/list-incidencias.component';
 import {PrincipalComponent} from '../components/principal/principal.component';
-
+import { ListInventariosComponent } from '../components/list-inventarios/list-inventarios.component';
+import {ListTonersComponent} from '../components/list-toners/list-toners.component'
+import {InventoriesFormComponent} from '../components/inventories-form/inventories-form.component'
+import { ListEntregaTonersComponent } from '../components/list-entrega-toners/list-entrega-toners.component';
+import{TonerFormComponent} from '../components/toner-form/toner-form.component'
 
 //pipes
 import { FilterPipe } from '../pipes/filter.pipe';
 import { FilterInventories } from '../pipes/filterInventories';
-import {InventoriesFormComponent} from '../components/inventories-form/inventories-form.component'
+import {FilterToners} from '../pipes/filterToners';
+import { FilterSalToner } from '../pipes/filSalidaToner';
+
+
 
 
 
@@ -33,7 +40,13 @@ import {InventoriesFormComponent} from '../components/inventories-form/inventori
     PrincipalComponent,
     FilterPipe,
     FilterInventories,
-    InventoriesFormComponent
+    InventoriesFormComponent,
+    ListInventariosComponent,
+    ListTonersComponent,
+    FilterToners,
+    ListEntregaTonersComponent,
+    FilterSalToner,
+    TonerFormComponent
   ],
   imports: [
     CommonModule,

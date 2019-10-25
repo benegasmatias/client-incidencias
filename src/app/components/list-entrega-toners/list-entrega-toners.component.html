@@ -1,0 +1,95 @@
+<h3 class="titulo">Listado de Toners Entregados</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control contenido" name="filterTonerEntrega" placeholder="Buscar por Modelo de toner"
+          [(ngModel)]="filterTonerEntrega">
+
+      </div>
+    </div>
+    <div *ngIf="habilitarEdit===false" class="col-md-6">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary contenido "  data-toggle="modal"
+        data-target="#exampleModalCenter">
+        Habilitar
+      </button>
+    </div>
+    <div class="alert alert-danger contenido" *ngIf="Nologged">Usuario o contraseña Erronea</div>
+  </div>
+
+      <table class="table table-striped " >
+        <thead >
+          <tr class="contenido" id="header">
+            <th>id</th>
+            <th>Toner</th>   
+            <th>Tipo</th>
+            <th>Oficina</th>
+            <th>Cantidad</th>
+            <th>Fecha de entrega</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let toner of TonerEntrega | filSalToner:filterTonerEntrega ; index as i" class="contenido" >
+
+            <td>{{i+1}}</td>
+            <td>{{toner.toner_model}}</td>
+            <th>{{toner.type}}</th>
+            <th>{{toner.name_office}}</th>
+            <td>{{toner.quantity_departures}}</td>
+            <td>{{toner.date}}</td>
+       
+            
+            
+              <!--Boton o botones para ir a formulario de Inventarios-->
+              <td *ngIf="habilitarEdit">
+                <button type="button" class="btn  btn-danger contenido"  name="agregatoner" (click)="eliminarSalida(toner.id)">
+                    Borrar
+                  </button>
+              </td>
+            
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Modal Login -->
+<div class="modal fade contenido" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Verificacion</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" name="username" [(ngModel)]="user.username"
+          aria-describedby="inputGroup-sizing-default">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Default" name="password" [(ngModel)]="user.password"
+          aria-describedby="inputGroup-sizing-default">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" (click)="loginEdit()" data-dismiss="modal">Confirmar
+        Acceso</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+  
+    
+  
+
