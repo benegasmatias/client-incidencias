@@ -6,8 +6,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <input type="text" class="form-control" name="filterPost" placeholder="Buscar por Oficina, Tecnico, Problema"
+          <input  class="contenido"   name="busqueda"  id="frmNameCC" class="form-control" placeholder="Buscar por Oficina, Tecnico, Problema"
             [(ngModel)]="filterPost">
+
 
         </div>
       </div>
@@ -21,9 +22,9 @@
       <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
     </div>
 
-        <table class="table table-striped">
+        <table class="table  w-auto">
            
-          <thead>
+          <thead >
             <tr>
               <th>id</th>
               <th>Oficina</th>
@@ -36,10 +37,10 @@
               <th></th>
             </tr>
           </thead>
-          <tbody >
+          <tbody class="text-dark text-capitalize">
             <tr *ngFor="let post of incidencias | filter:filterPost ; index as i">
               <td>{{i+1}}</td>
-              <td>{{post.name_office}}</td>
+              <td >{{post.name_office}}</td>
               <td>{{post.name_tec}}</td>
               <td>{{post.name_user}}</td>
               <td>{{post.name_problem}}</td>
@@ -92,7 +93,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" name="password" [(ngModel)]="user.password"
+            <input type="password" class="form-control" autocomplete = "new-password" aria-label="Default" name="password" [(ngModel)]="user.password"
               aria-describedby="inputGroup-sizing-default">
           </div>
         </div>

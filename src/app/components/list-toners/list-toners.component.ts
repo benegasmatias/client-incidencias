@@ -40,15 +40,15 @@ getTypeToner(){
 }
 
   agregaToner(toner){
-    console.log(toner)
+   
     this.toner=toner
   }
 
   AumentarStock(){
     this.tonerStockService.EditToner(this.toner.id_toner,this.toner).
     subscribe(
-      (data)=>{
-        console.log(data)
+      ()=>{
+
         
         this.router.navigateByUrl("incidencia/listToners");
       },

@@ -17,7 +17,7 @@ export class authGuard implements CanActivate {
     if (this.customerService.isLogged()===true) {
 
       return  true;
-    }
+    }else{ 
 
     this.router.navigateByUrl(
       this.router.createUrlTree(
@@ -30,5 +30,6 @@ export class authGuard implements CanActivate {
     );
 
     return false;
+      }
   }
 }

@@ -55,7 +55,7 @@ subscribe(
     this.tonerStockService.getTonersSalidas().
     subscribe(
       (data)=>{this.TonerEntrega=data['departures']
-    console.log(data)}, 
+    }, 
       ()=>{},
       ()=>{})
   }

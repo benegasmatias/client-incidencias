@@ -5,37 +5,55 @@
               <div class="card-header  ">
                 <h2 class="text-center text-white titulo ">Agregar un toner</h2>
               </div>
-              <div class="card-body">
-             
+              <div class="card-body" [formGroup]="form">
+             <!-- Modelo de toner-->
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text contenido" for="inputGroupUsers" >Toner </label>
                   
                 </div>              
-                <input class="custom-select contenido" id="inputGroupProblems" placeholder="Modelo de Toner" [(ngModel)]="toner.toner_model">
+                <input class="custom-select contenido" id="inputGroupProblems" required formControlName="modeloToner" placeholder="Modelo de Toner"  [(ngModel)]="toner.toner_model">
               </div>
-
+              <div class="align-items-end" *ngIf="form.controls['modeloToner'].hasError('required') && form.controls['modeloToner'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar un tipo de toner</a>
+               </div>
+              
+           <!-- Tipo del toner-->
               <div class="input-group mb-3">
+                
                 <div class="input-group-prepend">
                   <label class="input-group-text contenido" for="inputGroupTechnicals">Tipo</label>
                 </div>
-                <select class="custom-select contenido" id="inputGroupTechnicals" [(ngModel)]="toner.type">
-                  <option *ngFor="let type of type_toners" [value]="type.id">{{type.type}}
+                <select class="custom-select contenido" id="selectTypeToner" required formControlName="tipoToner" [(ngModel)]="toner.type">
+                  <option *ngFor="let type of type_toners" value="type.id">{{type.type}}
                   </option>
     
                 </select>
               </div>
+              <div class="align-items-end" *ngIf="form.controls['tipoToner'].hasError('required') && form.controls['tipoToner'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar un tipo de toner</a>
+               </div>
+             
+            <!-- Cantidad -->
+         
               <div class="input-group mb-3">
+               
                 <div class="input-group-prepend">
                   <label class="input-group-text contenido" for="inputGroupProblems">Cantidad</label>
                 </div>
-                <input class="custom-select contenido" id="inputGroupProblems" placeholder="Cantidad Disponible" [(ngModel)]="toner.quantity">
+                <input class="custom-select contenido" id="inputGroupProblems" required formControlName="cantidad" placeholder="Cantidad Disponible" [(ngModel)]="toner.quantity">
               
               </div>
+              <div class="align-items-end" *ngIf="form.controls['cantidad'].hasError('required') && form.controls['cantidad'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Ingresar Una cantidad</a>
+               </div>
           
     
             </div>
-            <button  class="btn btn-primary col-md-4 offset-md-4"  (click)="addToner()">
+            <button  class="btn btn-primary col-md-4 offset-md-4"  (click)="addToner()" [disabled]="form.invalid">
                 Guardar Toner
             </button>
     

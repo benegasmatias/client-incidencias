@@ -296,7 +296,7 @@ export class InventoriesFormComponent implements OnInit {
       subscribe(
         data => {
         this.toners = data['toners']
-          console.log(this.toners)
+         
         },
         err => console.log(err),
         ()=>{}
@@ -372,7 +372,7 @@ export class InventoriesFormComponent implements OnInit {
             this.TipoEquipo=''
             this.router.navigateByUrl("incidencia/list/1")},
           err => console.log(err),
-          () => console.log()
+          () => {}
         )
     } else if (this.buttonEdit === 'Editar Notebook') {
       this.inventarioService.editNotebook(this.id_laptop,this.note).
@@ -382,7 +382,7 @@ export class InventoriesFormComponent implements OnInit {
           this.TipoEquipo=''
           this.router.navigateByUrl("incidencia/list/1")},
         err=>console.log(),
-        ()=>console.log()
+        ()=>{}
       )
 
     }else if(this.buttonEdit=== 'Editar Monitor'){

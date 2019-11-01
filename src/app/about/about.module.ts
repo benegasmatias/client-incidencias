@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AboutRoutingModule } from './about-routing.module';
 import{FormsModule,ReactiveFormsModule} from '@angular/forms';
+
+
 //components
 import { NavigationComponent } from '../components/navigation/navigation.component';
 import { IncidenciasFormComponent } from '../components/incidencias-form/incidencias-form.component';
@@ -15,13 +17,16 @@ import { ListInventariosComponent } from '../components/list-inventarios/list-in
 import {ListTonersComponent} from '../components/list-toners/list-toners.component'
 import {InventoriesFormComponent} from '../components/inventories-form/inventories-form.component'
 import { ListEntregaTonersComponent } from '../components/list-entrega-toners/list-entrega-toners.component';
-import{TonerFormComponent} from '../components/toner-form/toner-form.component'
+import{TonerFormComponent} from '../components/toner-form/toner-form.component';
+
 
 //pipes
 import { FilterPipe } from '../pipes/filter.pipe';
 import { FilterInventories } from '../pipes/filterInventories';
 import {FilterToners} from '../pipes/filterToners';
 import { FilterSalToner } from '../pipes/filSalidaToner';
+import{authlg} from './authlog'
+
 
 
 
@@ -54,7 +59,9 @@ import { FilterSalToner } from '../pipes/filSalidaToner';
     HttpClientModule,  
     FormsModule,
     ReactiveFormsModule
-  ],
+   
+    
+  ],providers:[authlg],
   bootstrap:[PrincipalComponent]
 })
 export class AboutModule { }

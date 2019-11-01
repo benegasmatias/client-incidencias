@@ -61,6 +61,7 @@ export class ListIncidenciasComponent implements OnInit {
     this.getIncidencias();
     this.habilitarEdit=false;
     this.Nologged=false  ;
+    this.filterPost=" ";
     
   }
 

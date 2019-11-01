@@ -23,25 +23,26 @@ export class LoginService {
 
  }
  logout(){
-   let tokenAccess= localStorage.getItem('accessToken');
-   localStorage.removeItem("accessToken");
-   localStorage.removeItem("currentUser");
+   let tokenAccess= sessionStorage.getItem('accessToken');
+   sessionStorage.removeItem("accessToken");
+   sessionStorage.removeItem("currentUser");
   return this.http.post(`${this.API_URI}/UsersIncidents/logout`,tokenAccess);
  }
 
  setUser(user:LoginUser)
  {
       let login_user = JSON.stringify(user);
-      localStorage.setItem("currentUser", login_user);
+      sessionStorage.setItem("currentUser", login_user);
  }
  setToken(token){
-   localStorage.setItem("accessToken",token);
+  sessionStorage.setItem("accessToken",token);
  }
  getToken(){
-   return localStorage.getItem("accessToken");
+   return sessionStorage.getItem("accessToken");
  }
  isLogged(){
-    return (localStorage.getItem("accessToken") != null);
+   
+    return (sessionStorage.getItem("accessToken") != null);
    
  }
 

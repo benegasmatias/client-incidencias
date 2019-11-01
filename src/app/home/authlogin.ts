@@ -17,7 +17,7 @@ export class authlogin implements CanActivate {
     if (this.customerService.isLogged()===false) {
 
       return  true;
-    }
+    }else{ 
 
     this.router.navigateByUrl(
       this.router.createUrlTree(
@@ -30,5 +30,7 @@ export class authlogin implements CanActivate {
     );
 
     return false;
+    
+      }
   }
 }

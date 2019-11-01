@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import {FormGroup, FormControl, Validators, SelectControlValueAccessor} from '@angular/forms';
 
 
 //services
@@ -59,6 +60,7 @@ export class IncidenciasFormComponent implements OnInit {
   problemsList: Problem[];
   usersForOffice: Users[];
 
+  form: FormGroup
 
   constructor(
     private officeService: OfficesService,
@@ -70,10 +72,20 @@ export class IncidenciasFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private incidenciaService: IncidenciasService,
     private router: Router
-
+    
   ) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      'officee':new FormControl(),
+      'usuario':new FormControl(),
+      'tecnico':new FormControl(),
+      'problem':new FormControl(),
+      'toner':new FormControl(),
+      'quantit':new FormControl(),
+      'expediente':new FormControl(),
+      'solucion':new FormControl()
+    })
     const params = this.activatedRoute.snapshot.params;
 
     if (params.id) {
@@ -85,9 +97,9 @@ export class IncidenciasFormComponent implements OnInit {
       this.sup.description = params.description;
       this.sup.proccedings_support = params.proccedings;
       this.sup.problem_id = params.problem;
-      if (params.proccedings)
-        this.incidencia.solucion_inmed = 'No'
-      else this.incidencia.solucion_inmed = 'Si'
+      if (params.proccedings){
+        this.incidencia.solucion_inmed = 'No'}
+      else{ this.incidencia.solucion_inmed = 'Si'}
 
 
       this.bandera = false
@@ -195,12 +207,7 @@ export class IncidenciasFormComponent implements OnInit {
 
   }
 
-
-
-
-
-  saveNewIncidencia() {
-
+  saveNewIncidencia() {   
     let quantityToner
     let a = parseInt(this.EntregaToner.quantity_departures);
       console.log(a)
@@ -215,6 +222,7 @@ export class IncidenciasFormComponent implements OnInit {
         }
 
         let quantityActualizado = quantityToner - a;
+
       if ( quantityActualizado >= 0) {
      
         this.tonerr.toner_model = this.toners[this.EntregaToner.toner_id].toner_model
@@ -225,7 +233,7 @@ export class IncidenciasFormComponent implements OnInit {
         //agrega salida de toner
         this.supportService.addSalida(this.EntregaToner).
           subscribe(
-            (data)=>{console.log(data)
+            ()=>{
              
     },
             () => { },
@@ -233,7 +241,7 @@ export class IncidenciasFormComponent implements OnInit {
           );
            //actualiza el toner
            this.supportService.setCantToner(this.EntregaToner.toner_id,this.tonerr).subscribe(
-            (data)=>{console.log(data)
+            ()=>{
              
             },
             ()=>{},
@@ -243,7 +251,7 @@ export class IncidenciasFormComponent implements OnInit {
            //agrega incidencia
            this.supportService.addSupport(this.sup).
            subscribe(
-             res => console.log(res),
+             ()=>{},
              err => console.log(err),
              () => { });
  
@@ -263,11 +271,11 @@ export class IncidenciasFormComponent implements OnInit {
 
       this.supportService.addSupport(this.sup).
         subscribe(
-          res => console.log(res),
+          () =>{},
           err => console.log(err),
           () => { });
 
-      console.log(this.sup);
+     
 
       this.sup = new Supp();
       this.incidencia = new Support();
@@ -279,7 +287,7 @@ export class IncidenciasFormComponent implements OnInit {
   editarIncidencia() {
     this.incidenciaService.editIncidencia(this.id, this.sup).
       subscribe(
-        data => {
+        () => {
           this.router.navigateByUrl("incidencia/list");
         }, err => console.log(err),
         () => { }
@@ -293,7 +301,7 @@ export class IncidenciasFormComponent implements OnInit {
 
     this.incidenciaService.delete(this.id).
       subscribe(
-        data => {
+        () => {
           this.router.navigateByUrl("incidencia/list");
         },
         err => console.error("Algo Malio Sal!"),

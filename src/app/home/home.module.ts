@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import{FormsModule,ReactiveFormsModule} from '@angular/forms';
+import{FormsModule} from '@angular/forms';
 //components
 import {LoginComponent} from '../components/login/login.component';
 import {HomeRoutingModule} from './home-routing.module';
@@ -15,7 +15,6 @@ import {authlogin} from './authlogin'
   declarations: [LoginComponent],
   imports: [
     FormsModule,
-    ReactiveFormsModule,
     HomeRoutingModule,
     CommonModule
   ],

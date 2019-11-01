@@ -17,18 +17,11 @@ export class authlg implements CanActivate {
     if (this.customerService.isLogged()===true) {
 
       return  true;
-    }
+    }else { 
 
-    this.router.navigateByUrl(
-      this.router.createUrlTree(
-        [''], {
-          queryParams: {
-            redirectUrl
-          }
-        }
-      )
-    );
+   
 
     return false;
+      }
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 //modelos
 import {Users} from '../../../models/users'
 import {Office} from '../../../models/offices'
@@ -8,6 +9,7 @@ import {OfficesService} from '../../../services/offices.service'
 import {UsersService} from '../../../services/users.service'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-user-form',
@@ -36,7 +38,8 @@ export class UserFormComponent implements OnInit {
   //constructor
   constructor(
     protected officeService:OfficesService,
-    protected userService:UsersService
+    protected userService:UsersService,
+    private router : Router
     ) { 
       this.userForm=this.createFormGroup();
     }
@@ -66,17 +69,19 @@ export class UserFormComponent implements OnInit {
     )
   }
 
-  
+ 
   //Este metodo llama al servicio de user para poder almacenar el nuevo usuario
   private saveUserFromService(){
     this.userService.addUser(this.user)
     .subscribe(
       (response:HttpResponse<Response>)=>{
-        
+        this.router.navigateByUrl("incidencia/add");
         this.resp=response.body;
         if(response.status==200){
           this.classAlert=true;
-        }else this.classAlert=false;
+        }else {
+        
+          this.classAlert=false};
 
  
       },

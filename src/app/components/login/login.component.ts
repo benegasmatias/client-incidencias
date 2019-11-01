@@ -41,12 +41,6 @@ export class LoginComponent implements OnInit {
   }
 
   
-  pulsar(e) {
-    if (e.keyCode === 13) {
-        e.preventDefault();
-        var boton = document.getElementById("wea");
-      
-    }
-}
+  
 
 }

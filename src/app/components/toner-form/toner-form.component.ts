@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { typesToners } from 'src/app/models/types_toners';
 import{TonerService} from '../../services/toner.service';
 import { Toner } from 'src/app/models/toner';
+import {FormGroup, FormControl} from '@angular/forms'
+
+
 
 @Component({
   selector: 'app-toner-form',
@@ -12,10 +15,18 @@ export class TonerFormComponent implements OnInit {
 
   type_toners:typesToners[]
   toner:Toner= new Toner()
+
+  form: FormGroup
+
   constructor(private TonerService:TonerService ) { }
 
   ngOnInit() {
     this.getTypeToner();
+   this.form = new FormGroup({
+     'tipoToner': new FormControl(),
+     'cantidad': new FormControl(),
+     'modeloToner':new FormControl()
+   })
   }
 
   getTypeToner(){
@@ -27,7 +38,7 @@ export class TonerFormComponent implements OnInit {
 
   addToner(){
     this.TonerService.addToner(this.toner).subscribe(
-      (data)=>{console.log(data)}
+      ()=>{}
     )
   }
 
