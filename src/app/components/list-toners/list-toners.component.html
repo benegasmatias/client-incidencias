@@ -25,7 +25,8 @@
             <th>Toner</th>
             <th>Tipo</th>
             <th>Cantidad</th>
-            <th></th>
+            <th>Descripción</th>
+            <th *ngIf="habilitarEdit">  </th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +36,9 @@
             <td>{{toner.toner_model}}</td>
             <th>{{toner.type}}</th>
             <td>{{toner.quantity}}</td>
-       
+            <td>{{toner.description}}</td>
+            
+            
             
             
               <!--Boton o botones para ir a formulario de Inventarios-->
@@ -101,12 +104,14 @@ aria-hidden="true">
       </button>
     </div>
     <div class="modal-body">
-
+<!-- modelo de toner-->
       <div class="input-group mb-3">
         <div class="input-group-append contenido">
          <label >{{toner.toner_model}}</label>
         </div>
       </div>
+
+      <!--Tipo de toner-->
       <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text contenido" for="inputGroupTechnicals">Tipo</label>
@@ -118,12 +123,23 @@ aria-hidden="true">
           </select>
 
         </div>
+       <!-- Cantidad-->
       <div class="input-group mb-3">
           <div class="input-group-prepend">
               <label class="input-group-text contenido" for="inputGroupTechnicals">Cantidad</label>
             </div>
         <input type="number" class="form-control contenido" placeholder="Capacidad" 
           name="quantity" [(ngModel)]="toner.quantity">
+      </div>
+
+       <!-- Description-->
+       <div class="input-group mb-3">
+               
+        <div class="input-group-prepend">
+          <label class="input-group-text contenido" for="textdescription">Descripcion</label>
+        </div>
+        <textarea    class="form-control contenido" rows="3" id="textdescription"   [ngModelOptions]="{standalone: true}"   placeholder="Descripcion" [(ngModel)]="toner.description"></textarea>
+      
       </div>
 
     </div>

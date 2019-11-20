@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TonerService } from '../../services/toner.service';
-import { Tonerstock, Tonerr} from 'src/app/models/toner';
+import { Tonerstock, Tonerr } from 'src/app/models/toner';
 import { LoginService } from '../../services/login.service'
 import { LoginUser } from '../../models/login-user';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class ListTonersComponent implements OnInit {
   TonerStock: Tonerstock[]
   typesToner: typesToners[]
 
-  toner: Tonerr=new Tonerr()
+  toner: Tonerr = new Tonerr()
 
   filterTonerStock = ' ';
   user = new LoginUser();
@@ -36,7 +36,7 @@ export class ListTonersComponent implements OnInit {
   getTypeToner() {
     this.tonerStockService.getTypeToners().subscribe(
       (data) => {
-        
+
         this.typesToner = data['typesToner']
         console.log(this.typesToner)
       }
@@ -44,12 +44,11 @@ export class ListTonersComponent implements OnInit {
   }
 
   llenaToner(ton) {
-this.toner.id_toner=ton.id_toner
-this.toner.type_id=ton.id_type
-this.toner.quantity=ton.quantity
-this.toner.toner_model=ton.toner_model
-
-  
+    this.toner.id_toner = ton.id_toner
+    this.toner.type_id = ton.id_type
+    this.toner.quantity = ton.quantity
+    this.toner.toner_model = ton.toner_model
+    this.toner.description = ton.description
 
   }
 
@@ -59,7 +58,7 @@ this.toner.toner_model=ton.toner_model
         (data) => {
           this.router.navigateByUrl("incidencia/listToners");
           console.log(data)
-        
+
           this.getTonerStock();
         },
         () => { },
@@ -71,8 +70,8 @@ this.toner.toner_model=ton.toner_model
     this.tonerStockService.getToners().
       subscribe(
         (data) => {
-        this.TonerStock = data['toners']
-          
+          this.TonerStock = data['toners']
+          console.log(this.TonerStock)
         },
         () => { },
         () => { })
@@ -91,7 +90,7 @@ this.toner.toner_model=ton.toner_model
   }
 
   eliminarToner(toner) {
-    
+
     this.tonerStockService.deleteToner(toner.id_toner).
       subscribe(() => {
         this.getTonerStock();

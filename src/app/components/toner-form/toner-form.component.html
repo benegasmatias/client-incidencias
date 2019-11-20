@@ -12,7 +12,7 @@
                     <label class="input-group-text contenido" for="inputGroupUsers" >Toner </label>
                   
                 </div>              
-                <input class="custom-select contenido" id="inputGroupProblems" required formControlName="modeloToner" placeholder="Modelo de Toner"  [(ngModel)]="toner.toner_model">
+                <input class="form-control contenido" id="inputGroupProblems" required formControlName="modeloToner" placeholder="Modelo de Toner"  [(ngModel)]="toner.toner_model">
               </div>
               <div class="align-items-end" *ngIf="form.controls['modeloToner'].hasError('required') && form.controls['modeloToner'].touched"
               class="alert alert-danger contenido">
@@ -43,7 +43,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text contenido" for="inputGroupProblems">Cantidad</label>
                 </div>
-                <input class="custom-select contenido" id="inputGroupProblems" required formControlName="cantidad" placeholder="Cantidad Disponible" [(ngModel)]="toner.quantity">
+                <input type="number" class="form-control contenido" id="inputGroupProblems" required formControlName="cantidad" placeholder="Cantidad Disponible" [(ngModel)]="toner.quantity">
               
               </div>
               <div class="align-items-end" *ngIf="form.controls['cantidad'].hasError('required') && form.controls['cantidad'].touched"
@@ -51,7 +51,15 @@
               <a class="text-center contenido ">Por favor, Ingresar Una cantidad</a>
                </div>
           
-    
+              <!--description-->
+              <div class="input-group mb-3">
+               
+                <div class="input-group-prepend">
+                  <label class="input-group-text contenido" for="textdescription">Descripcion</label>
+                </div>
+                <textarea    class="form-control contenido" rows="3" id="textdescription"   [ngModelOptions]="{standalone: true}"   placeholder="Descripcion" [(ngModel)]="toner.description"></textarea>
+              
+              </div>
             </div>
             <button  class="btn btn-primary col-md-4 offset-md-4"  (click)="addToner()" [disabled]="form.invalid">
                 Guardar Toner

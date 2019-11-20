@@ -16,9 +16,9 @@
   <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
 </div>
 
-<table class=" table ">
+<table class="table">
   <thead>
-    <tr id="header">
+    <tr >
       <th>id</th>
       <th>Oficina</th>
       <th>Gabinete</th>
@@ -31,7 +31,7 @@
       <th>Monitor</th>
       <th>Monitor Numero de serie</th>
       <th>Impresora</th>
-      <th></th>
+      <th *ngIf="habilitarEdit">   </th>
     </tr>
   </thead>
   <tbody>
@@ -52,25 +52,21 @@
 
       <!--Boton o botones para ir a formulario de Inventarios-->
       <td *ngIf="habilitarEdit">
-
-        <div class="col-md-6">
-          <button *ngIf='post.id_cabinet!= null' class="btn text-white bg-dark"
+ 
+          <button type="button" *ngIf='post.id_cabinet!= null' class="btn text-white "
             [routerLink]="['../editinventario', post.id_office, post.name_cabinet, post.name_computer, post.id_ram,post.id_disk, post.id_microprocessor, post.id_motherboard,post.id_cabinet,post.ip_address]">Editar</button>
-          <button *ngIf='post.id_laptop != null' class="btn text-white bg-dark"
+          <button type="button" *ngIf='post.id_laptop != null' class="btn text-white "
             [routerLink]="['editinventario', post.id_office, post.name_cabinet, post.id_laptop, post.id_ram, post.id_disk]">Editar</button>
-          <button *ngIf='post.id_monitor != null' class="btn text-white bg-dark"
+          <button type="button" *ngIf='post.id_monitor != null' class="btn text-white "
             [routerLink]="['editinventario', post.id_office, post.name_monitor,post.id_monitor,post.number_serie]">Editar</button>
-          <button *ngIf='post.id_printer != null' class="btn text-white bg-dark"
+          <button  type="button" *ngIf='post.id_printer != null' class="btn text-white "
             [routerLink]="['editinventarioi', post.id_office, post.name_printer,post.id_printer,post.id_toner,post.number_printer]">Editar</button>
-        </div>
-        <div class="col-md-6">
+       
+      
 
-          <button class="btn btn-danger mt-3">
+          <button type="button" class="btn btn-danger ">
             Borrar
           </button>
-        </div>
-
-
 
       </td>
 

@@ -3,6 +3,7 @@ export class Toner {
     toner_model:string
     quantity:string
     type_id:string
+    description:string
 
 }
 export class Tonerr {
@@ -10,6 +11,7 @@ id_toner:string
     toner_model:string
     quantity:string
     type_id:string
+    description:string
 
 }
 export class Tonerstock{
@@ -18,6 +20,7 @@ export class Tonerstock{
     toner_model:string
     quantity:string 
     type:string
+    description:string
 }
 export class TonerEntrega{
     id:string
