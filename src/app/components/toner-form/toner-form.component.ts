@@ -27,6 +27,8 @@ export class TonerFormComponent implements OnInit {
      'cantidad': new FormControl(),
      'modeloToner':new FormControl()
    })
+
+    
   }
 
   getTypeToner(){
@@ -37,10 +39,20 @@ export class TonerFormComponent implements OnInit {
   }
 
   addToner(){
-    this.TonerService.addToner(this.toner).subscribe(
-      (data)=>{this.toner=new Toner()
-      console.log(data)}
+    this.TonerService.getForModel(this.toner.toner_model).subscribe(
+      (data)=>{ let model = data['model']
+      //Pregunta si hay un toner con ese modelo
+          if(model.length==0){
+            this.TonerService.addToner(this.toner).subscribe(
+              (data)=>{this.toner=new Toner()
+              console.log(data)})
+          }else alert('El Modelo de toner ya existe!')
+      
+      }
     )
+    
+  
+    
   }
 
 }

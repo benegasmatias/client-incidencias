@@ -37,5 +37,8 @@ export class TonerService {
     return this.http.delete(`${this.API_URI}/Toners/delete/${id}.json`);
   }
 
+  getForModel(tonerModel){
+    return this.http.get(`${this.API_URI}/Toners/viewModel/${tonerModel}.json`);
+  }
 
 }
