@@ -9,3 +9,7 @@ export class GabineteOUT {
     microprocessor_id:string
 
 }
+export class GabinetForOffice{
+    id_cabinet:string
+    name_cabinet:string
+}

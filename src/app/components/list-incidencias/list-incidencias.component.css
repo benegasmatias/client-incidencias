@@ -18,6 +18,7 @@
 		/* Force table to not be like tables anymore */
 		table, thead, tbody, th, td, tr {
 			margin-top: 6px;
+			
 			display: block;
 		}
 	
@@ -82,6 +83,18 @@
 	/* Behave  like a "row" */
 color: floralwhite;
   }
+
+  table{
+	
+	left:0px;
+  
+	width:100%;
+	height:1000px;
+	text-align: center;
+	display: block;
+	margin: 0 0 0;
+  }
+
 
     
 

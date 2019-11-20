@@ -38,5 +38,33 @@ export class IncidenciasService {
   getPrinters(){
     return this.http.get(`${this.API_URI}/Printers/index.json`);
   }
+
+  getCabinetForOffice(id){
+    return this.http.get(`${this.API_URI}/Cabinets/getCabinetsForOffices/${id}.json`)
+  }
+  getLaptopsForOffices(id){
+    return this.http.get(`${this.API_URI}/Laptops/getLaptopsForOffices/${id}.json`)
+  }
+  getMonitorsForOffices(id){
+    return this.http.get(`${this.API_URI}/Monitors/getMonitorForOffices/${id}.json`)
+  }
+
+  getPrintersForOffices(id){
+    return this.http.get(`${this.API_URI}/Printers/getPrintersForOffices/${id}.json`)
+  }
+
+  deleteCabinet(id){
+    return this.http.delete(`${this.API_URI}/Cabinets/delete/${id}.json`);
+  }
+  deletePrinter(id){
+    return this.http.delete(`${this.API_URI}/Printers/delete/${id}.json`);
+  }
+  deleteMonitor(id){
+    return this.http.delete(`${this.API_URI}/Monitors/delete/${id}.json`);
+  }
+  deleteLaptops(id){
+    return this.http.delete(`${this.API_URI}/laptops/delete/${id}.json`);
+  }
+  
   
 }

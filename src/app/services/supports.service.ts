@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 
 import { Supp } from '../models/supp';
 import { SalidaToner, Tonerr } from '../models/toner';
+import{GabineteOUT}from '../models/gabinete'
+
 
 
 @Injectable({
@@ -26,6 +28,10 @@ export class SupportsService {
   setCantToner(id:string,toner:Tonerr){
     console.log(toner)
     return this.http.patch(`${this.API_URI}/Toners/edit/${id}.json`,toner);
+  }
+
+  addGabinete(gab:GabineteOUT){
+    return this.http.post(`${this.API_URI}/Cabinets/add.json`,gab);
   }
  
 }

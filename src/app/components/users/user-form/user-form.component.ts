@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 //modelos
 import {Users} from '../../../models/users'
@@ -11,12 +11,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 
+
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnChanges {
 
 
 
@@ -24,7 +25,14 @@ export class UserFormComponent implements OnInit {
  
 
   /*variables locales*/
-  @Input() office
+  //variable offic recibida de un componte padre. el ngOnCHanges es el metodo que permite analisar cuando cambie
+  @Input()   offic: string
+  ngOnChanges(changes: SimpleChanges){
+    if(changes.offic && changes.offic.currentValue){
+      this.user.office_id = parseInt(this.offic)
+    }
+  }
+  
   //esta variable se usa para añadir clase de exito o falla en el alerta despues que ocurre el evento de guardar un nuevo usuario
   classAlert:boolean;
   alertShow:boolean=false;
@@ -33,7 +41,7 @@ export class UserFormComponent implements OnInit {
   //objetos
   user: Users =new Users();
   resp: Response=new Response('','');
-
+  
 
   //constructor
   constructor(
@@ -46,7 +54,14 @@ export class UserFormComponent implements OnInit {
 
   //metodos  
   ngOnInit() {
+   if(this.offic){
     this.getOfficesComponent();
+
+    this.user.office_id = parseInt(this.offic)
+  }else{
+    this.getOfficesComponent();
+  }
+    
   }
   createFormGroup(){
     return new FormGroup({

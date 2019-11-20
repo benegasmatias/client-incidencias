@@ -20,17 +20,6 @@ import{LoginUser} from '../../models/login-user'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 @Component({
   selector: 'app-list-incidencias',
   templateUrl: './list-incidencias.component.html',

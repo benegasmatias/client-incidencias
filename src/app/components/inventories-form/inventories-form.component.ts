@@ -18,6 +18,7 @@ import { Microproccessor } from 'src/app/models/microproccessor';
 import { Toner } from 'src/app/models/toner';
 import { Notebook } from 'src/app/models/notbook';
 import { GabineteOUT } from 'src/app/models/gabinete';
+import { typesToners } from 'src/app/models/types_toners';
 
 
 
@@ -36,6 +37,7 @@ export class InventoriesFormComponent implements OnInit {
   motherboard: Mother[]
   micros: Microproccessor[]
   toners: Toner[]
+
 
 
   selectoffice = false
@@ -150,6 +152,8 @@ export class InventoriesFormComponent implements OnInit {
 
 
   }
+  
+  
 
   private getOfficesComponent() {
     this.officeService.getOffices()

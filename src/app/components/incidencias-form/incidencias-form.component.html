@@ -5,211 +5,339 @@
         <div class="card-header ">
           <h2 class="card-title text-center text-white titulo ">{{titulo}}</h2>
         </div>
-        <div class="card-body "  >
+        <div class="card-body ">
           <div class="form-group" [formGroup]="form">
-          <!--Oficina-->
-         
-          <div class="input-group mb-3" >
-            
-            <div class="input-group-prepend">
-              <label class="input-group-text contenido" for="inputGroupOffice">Oficina</label>
-              
-            </div>
-          
-            <select class="custom-select contenido form-control" required formControlName="officee"  id="inputGroupOffice"    [(ngModel)]="incidencia.oficina"
-              (change)="getUsersForOffice(incidencia.oficina)">
-              <option *ngFor="let office of officesList"   [ngValue]="office.id_office">{{office.name_office}}</option>
-            </select>
-         
+            <!--Oficina-->
 
-            
-        </div>
-        <div class="align-items-end" *ngIf="form.controls['officee'].hasError('required') && form.controls['officee'].touched"
-        class="alert alert-danger contenido">
-        <a class="text-center contenido ">Por favor, Debe Seleccionar una oficina</a>
-         </div>
-      
-    
-          <!--usuario y modal de usuario-->
-        
-          <div class="input-group mb-3">
-        
-            <div class="input-group-prepend">
-              <label class="input-group-text contenido"  for="inputGroupUsers">Usuario</label>
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <label class="input-group-text contenido" for="inputGroupOffice">Oficina</label>
+
+              </div>
+
+              <select class="custom-select contenido form-control" required formControlName="officee"
+                id="inputGroupOffice" [(ngModel)]="incidencia.oficina" (change)="getUsersForOffice(incidencia.oficina)">
+                <option *ngFor="let office of officesList" [ngValue]="office.id_office">{{office.name_office | uppercase}}</option>
+              </select>
+
+
 
             </div>
-            <select class="custom-select contenido" id="inputGroupUsers"  required formControlName="usuario" [(ngModel)]="sup.user_id">
-              <option *ngFor="let user of usersForOffice" [value]='user.id_user'>{{user.name_user}}</option>
-            </select>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
-              +
-              </button>
+            <div class="align-items-end"
+              *ngIf="form.controls['officee'].hasError('required') && form.controls['officee'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar una oficina</a>
+            </div>
 
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
 
-                      <button type="button" class="close contenido" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+            <!--usuario y modal de usuario-->
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <label class="input-group-text contenido" for="inputGroupUsers">Usuario</label>
+
+              </div>
+              <select class="custom-select contenido" id="inputGroupUsers" required formControlName="usuario"
+                [(ngModel)]="sup.user_id">
+                <option *ngFor="let user of usersForOffice" [value]='user.id_user'>{{user.name_user | uppercase}}</option>
+              </select>
+              <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
+                  +
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+
+                        <button type="button" class="close contenido" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body"  *ngIf="incidencia.oficina">
+                        <app-user-form  [offic]="incidencia.oficina"></app-user-form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
+                  </div>
+                </div>
+                <!-- <a class="btn btn-outline-secondary" (click)="openUser(open)">
+              
+              </a>-->
+              </div>
+
+
+            </div>
+            <div class="align-items-end"
+              *ngIf="form.controls['usuario'].hasError('required') && form.controls['usuario'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar una oficina</a>
+            </div>
+
+            <!-- tecnico-->
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <label class="input-group-text contenido" for="inputGroupTechnicals">Tecnico</label>
+              </div>
+              <select class="custom-select contenido" id="inputGroupTechnicals" required formControlName="tecnico"
+                [(ngModel)]="sup.technical_id">
+                <option *ngFor="let technical of technicalsList" [value]="technical.id_technical">{{technical.name_tec| uppercase}}
+                </option>
+              </select>
+
+            </div>
+            <div class="align-items-end"
+              *ngIf="form.controls['tecnico'].hasError('required') && form.controls['tecnico'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar un Tecnico</a>
+            </div>
+
+            <!--problema-->
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <label class="input-group-text contenido" for="inputGroupProblems">Problema</label>
+              </div>
+              <select class="custom-select contenido" id="inputGroupProblems" required formControlName="problem"
+                (change)="getToners()" [(ngModel)]="sup.problem_id">
+                <option *ngFor="let problem of problemsList" [value]="problem.id_problem">{{problem.name_problem | uppercase}}
+                </option>
+              </select>
+
+            </div>
+            <div class="align-items-end"
+              *ngIf="form.controls['problem'].hasError('required') && form.controls['problem'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar un Problema</a>
+            </div>
+
+
+            <!--Toner si es que se selecciona-->
+            <div *ngIf="sup.problem_id =='7'">
+
+              <div class="input-group-prepend mb-3">
+
+                <label class="input-group-text contenido" for="inputGroupProblems">Impresora</label>
+
+                <select class="custom-select contenido" id="inputGroupProblems" [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="EntregaToner.toner_id">
+                  <option *ngFor="let printer of printers" [value]="printer.toner_id">{{printer.name_printer}}
+                  </option>
+                </select>
+
+
+              </div>
+
+              <div class="input-group-prepend mb-3">
+
+                <label class="input-group-text contenido" for="inputGroupProblems">Toner</label>
+
+                <select class="custom-select contenido" formControlName="toner" id="inputGroupProblems"
+                  [(ngModel)]="EntregaToner.toner_id">
+                  <option *ngFor="let toner of toners" [value]="toner.id_toner">{{toner.toner_model}}
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3"> Disponible: {{toner.quantity}} Tipo:
+                        {{toner.type}}</span>
+
+                    </div>
+                  </option>
+                </select>
+              </div>
+              <div class="align-items-end"
+                *ngIf="form.controls['toner'].hasError('required') && form.controls['toner'].touched"
+                class="alert alert-danger contenido">
+                <a class="text-center contenido ">Por favor, Debe Seleccionar un Toner</a>
+              </div>
+              <!-- Cantidad-->
+              <div class="input-group mb-3">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text contenido">Cantidad</span>
+                </div>
+                <input type="number" class="d-inline-block form-control contenido" id="quantit" required
+                  formControlName="quantit" aria-label="With textarea" placeholder="Cantidad de toner a entregar"
+                  [(ngModel)]="EntregaToner.quantity_departures">
+
+
+              </div>
+              <div class="align-items-end"
+                *ngIf="form.controls['quantit'].hasError('required') && form.controls['quantit'].touched"
+                class="alert alert-danger contenido">
+                <a class="text-center contenido ">Por favor, Debe Ingresar una Cantidad</a>
+              </div>
+
+            </div>
+            <!--Si es Entrega o Salida de hardware-->
+            <div class="input-group mb-3  " *ngIf="sup.problem_id =='8'">
+
+              <button type="button" class="btn btn-outline-secondary mx-auto contenido" data-toggle="modal"
+                data-target="#modalRam">
+                Agregar inventario
+              </button>
+              <div class="modal fade" id="modalRam" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+
                     <div class="modal-body">
-                      <app-user-form></app-user-form>
+                      <app-inventories-form></app-inventories-form>
+
+
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Cerrar</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- <a class="btn btn-outline-secondary" (click)="openUser(open)">
-              
-              </a>-->
+
+
             </div>
 
+            <!--Salida de hardware-->
+            <div *ngIf="sup.problem_id =='9'" class="input-group  ">
 
-          </div>
-          <div class="align-items-end" *ngIf="form.controls['usuario'].hasError('required') && form.controls['usuario'].touched"
-          class="alert alert-danger contenido">
-          <a class="text-center contenido ">Por favor, Debe Seleccionar una oficina</a>
-           </div>
-          <!-- tecnico-->
-    
-          <div class="input-group mb-3">
-          
-            <div class="input-group-prepend">
-              <label class="input-group-text contenido" for="inputGroupTechnicals">Tecnico</label>
-            </div>
-            <select class="custom-select contenido" id="inputGroupTechnicals" required formControlName="tecnico" [(ngModel)]="sup.technical_id" >
-              <option *ngFor="let technical of technicalsList" [value]="technical.id_technical">{{technical.name_tec}}
-              </option>
-            </select>
-           
-          </div>
-          <div class="align-items-end" *ngIf="form.controls['tecnico'].hasError('required') && form.controls['tecnico'].touched"
-          class="alert alert-danger contenido">
-          <a class="text-center contenido ">Por favor, Debe Seleccionar un Tecnico</a>
-           </div>
-          <!--problema-->
-     
-          <div class="input-group mb-3">
-        
-            <div class="input-group-prepend">
-              <label class="input-group-text contenido" for="inputGroupProblems">Problema</label>
-            </div>
-            <select class="custom-select contenido" id="inputGroupProblems" required formControlName="problem" (change)="getToners()"
-              [(ngModel)]="sup.problem_id" >
-              <option *ngFor="let problem of problemsList" [value]="problem.id_problem" >{{problem.name_problem}}
-              </option>
-            </select>
-            
+              <div class="input-group mb-3">
+                <div class="input-group-prepend ">
+                  <label class="input-group-text contenido" for="inputGroupEquipo">Seleccione Equipo</label>
+                </div>
+                <select class="custom-select contenido " id="inputGroupEquipo" required formControlName="equipo"
+                  [(ngModel)]="TipoEquipo" (change)="selectEquipo()">
+                  <option value='gabinete'>Gabinete</option>
+                  <option value='notebook'>Notebook</option>
+                  <option value='impresora'>Impresora</option>
+                  <option value='monitor'>Monitor</option>
+                </select>
 
-          </div>
-          <div class="align-items-end" *ngIf="form.controls['problem'].hasError('required') && form.controls['problem'].touched"
-          class="alert alert-danger contenido">
-          <a class="text-center contenido ">Por favor, Debe Seleccionar un Problema</a>
-           </div>
-          <!--Toner si es que se selecciona-->
-          <div *ngIf="sup.problem_id =='7'">
-
-            <div class="input-group-prepend mb-3">
-
-              <label class="input-group-text contenido" for="inputGroupProblems">Impresora</label>
-
-              <select class="custom-select contenido" id="inputGroupProblems" [ngModelOptions]="{standalone: true}"[(ngModel)]="EntregaToner.toner_id">
-                <option *ngFor="let printer of printers" [value]="printer.toner_id">{{printer.name_printer}}
-                </option>
-              </select>
-
-              
-            </div>
-      
-            <div class="input-group-prepend mb-3">
-
-              <label class="input-group-text contenido"  for="inputGroupProblems">Toner</label>
-
-              <select class="custom-select contenido" formControlName="toner" id="inputGroupProblems" [(ngModel)]="EntregaToner.toner_id" >
-                <option *ngFor="let toner of toners" [value]="toner.id_toner">{{toner.toner_model}}
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3"> Disponible: {{toner.quantity}} Tipo:
-                      {{toner.type}}</span>
-
-                  </div>
-                </option>
-              </select>
-            </div>
-            <div class="align-items-end" *ngIf="form.controls['toner'].hasError('required') && form.controls['toner'].touched"
-            class="alert alert-danger contenido">
-            <a class="text-center contenido ">Por favor, Debe Seleccionar un Toner</a>
-             </div>
-          <!-- Cantidad-->
-            <div class="input-group mb-3">
-            
-              <div class="input-group-prepend">
-                <span class="input-group-text contenido">Cantidad</span>
               </div>
-              <input type="number" class="d-inline-block form-control contenido" id="quantit" required formControlName="quantit" aria-label="With textarea"
-                placeholder="Cantidad de toner a entregar" [(ngModel)]="EntregaToner.quantity_departures">
-              
-      
-          </div>
-          <div class="align-items-end" *ngIf="form.controls['quantit'].hasError('required') && form.controls['quantit'].touched"
-          class="alert alert-danger contenido">
-          <a class="text-center contenido ">Por favor, Debe Ingresar una Cantidad</a>
-           </div>
-           
-          </div>
-               <!--descripcion-->
-          <div class="input-group mb-3">
-            
-            <div class="input-group-prepend">
-              <span class="input-group-text contenido">Descripcion</span>
+
+              <!-- Gabinete Salida de hardware-->
+              <div *ngIf="TipoEquipo === 'gabinete' && cabinetsForOffice?.length > 0">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <label class="input-group-text contenido" for="inputGroupGabinet">Gabinete</label>
+                  </div>
+                  <select class="custom-select contenido" id="inputGroupGabinet" [(ngModel)]='cabinet' required
+                    formControlName="cabinet">
+                    <option *ngFor="let cab  of cabinetsForOffice" [value]="cab.id_cabinet">{{cab.name_cabinet}}
+                    </option>
+                  </select>
+
+                </div>
+              </div>
+              <!-- Gabinete Salida de hardware-->
+              <div *ngIf="TipoEquipo === 'notebook' && cabinetsForOffice?.length > 0">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <label class="input-group-text contenido" for="inputGroupNotebook">Notebook</label>
+                  </div>
+                  <select class="custom-select contenido" id="inputGroupnotebook" [(ngModel)]='laptop' required
+                    formControlName="laptop">
+                    <option *ngFor="let lap  of laptopsForOffice" [value]="lap.id_laptop">{{lap.name_laptop}}
+                    </option>
+                  </select>
+
+                </div>
+              </div>
+
+              <!-- Impresora Salida de hardware-->
+              <div *ngIf="TipoEquipo === 'impresora' && printersForOffice?.length > 0">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <label class="input-group-text contenido" for="inputGroupPrinter">Impresona</label>
+                  </div>
+                  <select class="custom-select contenido" id="inputGroupPrinter" [(ngModel)]='printer' required
+                    formControlName="printer">
+                    <option *ngFor="let prin  of printersForOffice" [value]="prin.id_printer">{{prin.name_printer}}
+                    </option>
+                  </select>
+
+                </div>
+              </div>
+   <!-- Monitor Salida de hardware-->
+              <div *ngIf="TipoEquipo === 'monitor' && monitorsForOffice?.length > 0">
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                      <label class="input-group-text contenido" for="inputGroupPrinter">Monitor</label>
+                    </div>
+                    <select class="custom-select contenido" id="inputGroupPrinter" [(ngModel)]='monitor' required
+                      formControlName="monitor">
+                      <option *ngFor="let moni  of monitorsForOffice" [value]="moni.id_monitor">{{moni.name_monitor}}
+                      </option>
+                    </select>
+  
+                  </div>
+                </div>
             </div>
-            <textarea class="form-control contenido" aria-label="With textarea"
-              placeholder="Agregue aqui detalles del problema" [(ngModel)]="sup.description" [ngModelOptions]="{standalone: true}"></textarea>
 
-          </div>
 
-          <!--Solucion inmediata-->
-     
-          <div class="input-group mb-3">
-             
-            <div class="input-group-prepend">
-              <label class="input-group-text contenido" for="inputGroupProblems">Solucion inmediata</label>
+
+
+            <!--descripcion-->
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <span class="input-group-text contenido">Descripcion</span>
+              </div>
+              <textarea class="form-control contenido" aria-label="With textarea"
+                placeholder="Agregue aqui detalles del problema" [(ngModel)]="sup.description"
+                [ngModelOptions]="{standalone: true}"></textarea>
+
             </div>
-            <select class="custom-select contenido" id="inputGroupProblems" required formControlName="solucion" [(ngModel)]="incidencia.solucion_inmed">
-              <option value='Si'>Si</option>
-              <option value='No'>No</option>
-            </select>
 
-            <div class="input-group mt-3" *ngIf="incidencia.solucion_inmed==='No'">
-             
+            <!--Solucion inmediata-->
+
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <label class="input-group-text contenido" for="inputGroupProblems">Solucion inmediata</label>
+              </div>
+              <select class="custom-select contenido" id="inputGroupProblems" required formControlName="solucion"
+                [(ngModel)]="incidencia.solucion_inmed">
+                <option value='Si'>Si</option>
+                <option value='No'>No</option>
+              </select>
+
+              <div class="input-group mt-3" *ngIf="incidencia.solucion_inmed==='No'">
+
                 <div class="input-group-prepend d-inline-block">
                   <label class="input-group-text contenido" for="inputExpediente">Expediente</label>
                 </div>
                 <input type="number" id="inputExpediente" placeholder="Ingresar numero de expediente"
-                  class="d-inline-block form-control contenido" required formControlName="expediente"  [(ngModel)]="sup.proccedings_support" >
-                    
-         
+                  class="d-inline-block form-control contenido" required formControlName="expediente"
+                  [(ngModel)]="sup.proccedings_support">
+
+
               </div>
-             
-            
+
+
             </div>
-            <div class="align-items-end" *ngIf="form.controls['expediente'].hasError('required') && form.controls['expediente'].touched"
-            class="alert alert-danger contenido">
-            <a class="text-center contenido ">Por favor, Debe Ingresar Un Numero Expediente</a>
-             </div>
-            <div class="align-items-end" *ngIf="form.controls['solucion'].hasError('required') && form.controls['solucion'].touched"
-            class="alert alert-danger contenido">
-            <a class="text-center contenido ">Por favor, Debe Seleccionar. Si o No</a>
-             </div>
+            <div class="align-items-end"
+              *ngIf="form.controls['expediente'].hasError('required') && form.controls['expediente'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Ingresar Un Numero Expediente</a>
+            </div>
+            <div class="align-items-end"
+              *ngIf="form.controls['solucion'].hasError('required') && form.controls['solucion'].touched"
+              class="alert alert-danger contenido">
+              <a class="text-center contenido ">Por favor, Debe Seleccionar. Si o No</a>
+            </div>
           </div>
-         
-          <button *ngIf='bandera' class="btn btn-primary col-md-5 offset-md-4" (click)="saveNewIncidencia()" [disabled]="form.invalid" >
+
+
+          <button *ngIf='bandera' class="btn btn-primary col-md-5 offset-md-4" (click)="saveNewIncidencia()"
+            [disabled]="form.invalid">
             {{button}}
           </button>
 
@@ -218,19 +346,17 @@
             <button class="btn btn-success  col-md-4 " (click)="editarIncidencia()" [disabled]="form.invalid">
               {{button}}
             </button>
-            <button class="btn btn-danger  col-md-4 offset-md-4 contenido" (click)="eliminarIncidencia()">
-              Eliminar Incidencia
-            </button>
+
 
           </div>
 
-       
-        
 
+
+
+        </div>
       </div>
+
     </div>
 
   </div>
-
-</div>
 </div>

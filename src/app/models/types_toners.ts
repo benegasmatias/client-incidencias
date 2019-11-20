@@ -1,4 +1,4 @@
 export class typesToners{
-    id:string
+    id_type:string
     type:string
 }

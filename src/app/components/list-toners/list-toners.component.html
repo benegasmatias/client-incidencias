@@ -40,8 +40,11 @@
             
               <!--Boton o botones para ir a formulario de Inventarios-->
               <td *ngIf="habilitarEdit">
-                <button type="button" class="btn btn-outline-secondary contenido"  name="agregatoner" (click)="agregaToner(toner)" data-toggle="modal" data-target="#modalToner">
-                    <i class="fas fa-plus-circle"></i>
+                <button type="button" class="btn btn-outline-secondary contenido"  name="agregatoner" (click)="llenaToner(toner)" data-toggle="modal" data-target="#modalToner">
+                    +
+                  </button>
+                  <button type="button" class="btn  btn btn-danger contenido"  name="borrar" (click)="eliminarToner(toner)"  data-target="#modalToner">
+                    Eliminar
                   </button>
               </td>
             
@@ -72,7 +75,7 @@ aria-hidden="true">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" name="password" [(ngModel)]="user.password"
+        <input type="password" class="form-control" aria-label="Default" name="password" autocomplete = "new-password" [(ngModel)]="user.password"
           aria-describedby="inputGroup-sizing-default">
       </div>
     </div>
@@ -85,7 +88,7 @@ aria-hidden="true">
 </div>
 </div>
 
-<!--Toner-->
+<!-- MOdal Toner-->
 <div class="modal fade contenido" id="modalToner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
 aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered contenido" role="document">
@@ -109,8 +112,8 @@ aria-hidden="true">
             <label class="input-group-text contenido" for="inputGroupTechnicals">Tipo</label>
           </div>
 
-          <select class="custom-select contenido" name="type" id="inputGroupTechnicals" [(ngModel)]="toner.id_type">
-            <option *ngFor="let toner of  typesToner" [value]="toner.id_type">{{toner.type}}
+          <select class="custom-select contenido" name="type" id="inputGroupTechnicals" [(ngModel)]="toner.type_id">
+            <option *ngFor="let type of  typesToner" [value]="type.id_type">{{type.type}}
             </option>
           </select>
 
@@ -126,7 +129,7 @@ aria-hidden="true">
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Cerrar</button>
-      <button type="button" class="btn btn-primary contenido " data-dismiss="modal" (click)="AumentarStock()">Guardar</button>
+      <button type="button" class="btn btn-primary contenido " data-dismiss="modal" (click)="addStock()">Guardar</button>
     </div>
   </div>
 </div>

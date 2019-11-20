@@ -2,7 +2,7 @@
 
 
   
-    <h3>Listado incidencias</h3>
+    <h3 class="titulo">Listado incidencias</h3>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -18,6 +18,7 @@
           data-target="#exampleModalCenter">
           Habilitar edicion
         </button>
+    
       </div>
       <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
     </div>
@@ -50,6 +51,8 @@
 
 
               <td *ngIf="habilitarEdit">
+
+
                 <button *ngIf='post.proccedings_support!==null' class="btn text-white bg-dark"
                   [routerLink]="['edit', post.id_support, post.proccedings_support, post.technical_id, post.problem_id, post.office_id, post.user_id, post.description]">Editar</button>
                 <button *ngIf='post.proccedings_support === null && post.description!==null'
@@ -58,6 +61,7 @@
                 <button *ngIf='post.proccedings_support === null && post.description===null'
                   class="btn text-white bg-dark"
                   [routerLink]="['edit', post.id_support, post.technical_id, post.problem_id, post.office_id, post.user_id]">Editar</button>
+
               </td>
             </tr>
           </tbody>

@@ -2,18 +2,18 @@ export class Toner {
     id_toner:string
     toner_model:string
     quantity:string
-    type:string
+    type_id:string
 
 }
 export class Tonerr {
-
+id_toner:string
     toner_model:string
     quantity:string
-    //type:string
+    type_id:string
 
 }
 export class Tonerstock{
-    id_type:string
+    type_id:string
     id_toner:string
     toner_model:string
     quantity:string 

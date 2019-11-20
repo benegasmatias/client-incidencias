@@ -38,7 +38,8 @@ export class TonerFormComponent implements OnInit {
 
   addToner(){
     this.TonerService.addToner(this.toner).subscribe(
-      ()=>{}
+      (data)=>{this.toner=new Toner()
+      console.log(data)}
     )
   }
 

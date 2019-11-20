@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import {FormGroup, FormControl, Validators, SelectControlValueAccessor} from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 //services
@@ -21,7 +21,10 @@ import { Users } from 'src/app/models/users';
 import { Support } from '../../models/support';
 import { Supp } from 'src/app/models/supp';
 import { Toner, SalidaToner, Tonerr } from '../../models/toner'
-import { Printer } from 'src/app/models/printer';
+import { Printer, printerForOffice } from 'src/app/models/printer';
+import { GabineteOUT, GabinetForOffice } from '../../models/gabinete'
+import { NotebookForOffice } from 'src/app/models/notbook';
+import { monitorForOffice} from 'src/app/models/monitor';
 
 
 
@@ -34,31 +37,57 @@ import { Printer } from 'src/app/models/printer';
   templateUrl: './incidencias-form.component.html',
   styleUrls: ['./incidencias-form.component.css']
 })
+
+
+
 export class IncidenciasFormComponent implements OnInit {
-
-  EntregaToner:SalidaToner= new SalidaToner()
-
-  printers:Printer[];
 
   
 
+  EntregaToner: SalidaToner = new SalidaToner()
+
+  gabinete: GabineteOUT = new GabineteOUT()
+
+
+  printers: Printer[];
+
+
+
   incidencia: Support = new Support();
+  
+
+  
   sup: Supp = new Supp();
 
   toners: Toner[];
- 
-  tonerr:Tonerr=new Tonerr();
+  tonerr: Tonerr = new Tonerr();
 
   titulo = '';
   button = '';
   bandera = true;
   id = '';
+  TipoEquipo = ' '
+  //id de oficina para el componente usuario
+  useridoffice=''
 
 
   officesList: Office[];
   technicalsList: Technical[];
   problemsList: Problem[];
+
   usersForOffice: Users[];
+
+  cabinetsForOffice: GabinetForOffice[];
+  cabinet = '';
+
+  laptopsForOffice: NotebookForOffice[];
+  laptop = '';
+
+  printersForOffice: printerForOffice[];
+  printer = '';
+
+  monitorsForOffice: monitorForOffice[];
+  monitor = '';
 
   form: FormGroup
 
@@ -72,19 +101,26 @@ export class IncidenciasFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private incidenciaService: IncidenciasService,
     private router: Router
-    
+
   ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
-      'officee':new FormControl(),
-      'usuario':new FormControl(),
-      'tecnico':new FormControl(),
-      'problem':new FormControl(),
-      'toner':new FormControl(),
-      'quantit':new FormControl(),
-      'expediente':new FormControl(),
-      'solucion':new FormControl()
+      'officee': new FormControl(),
+      'usuario': new FormControl(),
+      'tecnico': new FormControl(),
+      'problem': new FormControl(),
+      'toner': new FormControl(),
+      'quantit': new FormControl(),
+      'expediente': new FormControl(),
+      'solucion': new FormControl(),
+      'equipo': new FormControl(),
+      'cabinet': new FormControl(),
+      'laptop': new FormControl(),
+      'printer': new FormControl(),
+      'monitor': new FormControl()
+
+
     })
     const params = this.activatedRoute.snapshot.params;
 
@@ -97,9 +133,10 @@ export class IncidenciasFormComponent implements OnInit {
       this.sup.description = params.description;
       this.sup.proccedings_support = params.proccedings;
       this.sup.problem_id = params.problem;
-      if (params.proccedings){
-        this.incidencia.solucion_inmed = 'No'}
-      else{ this.incidencia.solucion_inmed = 'Si'}
+      if (params.proccedings) {
+        this.incidencia.solucion_inmed = 'No'
+      }
+      else { this.incidencia.solucion_inmed = 'Si' }
 
 
       this.bandera = false
@@ -131,11 +168,39 @@ export class IncidenciasFormComponent implements OnInit {
     }
 
   }
+  //dependiendo del equipo que seleccione es el que se cargara
+  selectEquipo() {
+    console.log(this.TipoEquipo)
+
+    if (this.TipoEquipo === 'gabinete') {
+      this.incidenciaService.getCabinetForOffice(this.incidencia.oficina).subscribe(
+        (data) => { this.cabinetsForOffice = data['cabinets'] })
+    } else {
+      if (this.TipoEquipo === 'notebook') {
+        this.incidenciaService.getLaptopsForOffices(this.incidencia.oficina).subscribe(
+          (data) => { this.laptopsForOffice = data['laptops'] }
+        )
+      } else {
+        if (this.TipoEquipo === 'monitor') {
+          this.incidenciaService.getMonitorsForOffices(this.incidencia.oficina).subscribe(
+            (data) => { this.monitorsForOffice = data['monitor'] })
+        } else {
+          if (this.TipoEquipo === 'impresora') {
+            this.incidenciaService.getPrintersForOffices(this.incidencia.oficina).subscribe(
+              (data) => { this.printersForOffice = data['printers'] })
+          }
+        }
+      }
+    }
+  }
+
+
+
 
   getToners() {
 
     if (this.sup.problem_id === '7') {
-      
+
       this.getPrinters();
 
       this.incidenciaService.getToners().
@@ -155,11 +220,12 @@ export class IncidenciasFormComponent implements OnInit {
 
 
   getUsersForOffice(id) {
-    console.log(id);
+    this.useridoffice=id;
     this.userService.showUsersForOffice(id)
       .subscribe(
         (data) => {
           this.usersForOffice = data['users'];
+          this.useridoffice="";
         }, err =>
         console.log(err),
         () => { }
@@ -168,11 +234,11 @@ export class IncidenciasFormComponent implements OnInit {
 
   }
 
-  getPrinters(){
-  this.incidenciaService.getPrinters().
-  subscribe(
-    data=>this.printers= data['printers']
-  )
+  getPrinters() {
+    this.incidenciaService.getPrinters().
+      subscribe(
+        data => this.printers = data['printers']
+      )
   }
 
   getTechnicalsComponent() {
@@ -207,81 +273,125 @@ export class IncidenciasFormComponent implements OnInit {
 
   }
 
-  saveNewIncidencia() {   
+  saveNewIncidencia() {
     let quantityToner
     let a = parseInt(this.EntregaToner.quantity_departures);
-      console.log(a)
-     
-     
-  
+    console.log(a)
 
     if (this.sup.problem_id === '7') {
-        for(let i=0;i<this.toners.length;i++){
-          if(this.toners[i].id_toner==this.EntregaToner.toner_id)
-            quantityToner=this.toners[i].quantity
-        }
+      for (let i = 0; i < this.toners.length; i++) {
+        if (this.toners[i].id_toner == this.EntregaToner.toner_id)
+          quantityToner = this.toners[i].quantity
+      }
 
-        let quantityActualizado = quantityToner - a;
+      let quantityActualizado = quantityToner - a;
 
-      if ( quantityActualizado >= 0) {
-     
+      if (quantityActualizado >= 0) {
+
         this.tonerr.toner_model = this.toners[this.EntregaToner.toner_id].toner_model
-        
-      
+
+
         this.tonerr.quantity = quantityActualizado.toString()
-        this.EntregaToner.office_id=this.incidencia.oficina
+        this.EntregaToner.office_id = this.incidencia.oficina
         //agrega salida de toner
         this.supportService.addSalida(this.EntregaToner).
           subscribe(
-            ()=>{
-             
-    },
+            () => {
+
+            },
             () => { },
             () => { }
           );
-           //actualiza el toner
-           this.supportService.setCantToner(this.EntregaToner.toner_id,this.tonerr).subscribe(
-            ()=>{
-             
-            },
-            ()=>{},
-            ()=>{}
-          )
+        //actualiza el toner
+        this.supportService.setCantToner(this.EntregaToner.toner_id, this.tonerr).subscribe(
+          () => {
 
-           //agrega incidencia
-           this.supportService.addSupport(this.sup).
-           subscribe(
-             ()=>{},
-             err => console.log(err),
-             () => { });
- 
-             this.sup = new Supp();
-             this.incidencia = new Support();
-         
-            this.tonerr = new Tonerr()
-           
+          },
+          () => { },
+          () => { }
+        )
 
-     
-         
+        //agrega incidencia
+        this.supportService.addSupport(this.sup).
+          subscribe(
+            () => { },
+            err => console.log(err),
+            () => { });
+
+        this.sup = new Supp();
+        this.incidencia = new Support();
+
+        this.tonerr = new Tonerr()
+
+
+
+
       } else {
         alert("No hay suficiente toner")
       }
 
     } else {
+      if (this.sup.problem_id === '8') {
 
-      this.supportService.addSupport(this.sup).
-        subscribe(
-          () =>{},
-          err => console.log(err),
-          () => { });
+        if (this.TipoEquipo === 'gabinete') {
+          this.gabinete.office_id = this.incidencia.oficina
+          this.supportService.addGabinete(this.gabinete).
+            subscribe(
+              () => { this.TipoEquipo = '' },
+              err => console.log(err),
+              () => { }
+            )
+        } else if (this.TipoEquipo === 'impresora') {
 
-     
+        } else if (this.TipoEquipo === 'notebook') {
 
-      this.sup = new Supp();
-      this.incidencia = new Support();
+        } else if (this.TipoEquipo === 'monitor') {
+
+        }
+
+      } else {
+        if (this.sup.problem_id === '9') {
+          //Delete gabinete o impresora o noteboock o monitor
+          if (this.TipoEquipo === 'gabinete') {
+            this.incidenciaService.deleteCabinet(this.cabinet).subscribe()
+          } else
+            if (this.TipoEquipo === 'notebook') {
+              this.incidenciaService.deleteLaptops(this.laptop).subscribe()
+            } else if (this.TipoEquipo === 'monitor') {
+              this.incidenciaService.deleteMonitor(this.monitor).subscribe()
+            } else if (this.TipoEquipo === 'impresora') {
+              this.incidenciaService.deletePrinter(this.printer).subscribe()
+            }
+          //guardar incidencia
+          this.supportService.addSupport(this.sup).
+            subscribe(
+              () => { },
+              err => console.log(err),
+              () => { });
+
+          this.sup = new Supp();
+          this.incidencia = new Support();
+
+
+
+        }
+        else {
+          this.supportService.addSupport(this.sup).
+            subscribe(
+              () => { },
+              err => console.log(err),
+              () => { });
+
+
+
+          this.sup = new Supp();
+          this.incidencia = new Support();
+        }
+
+      }
+
+
     }
-
-
   }
 
   editarIncidencia() {
@@ -310,6 +420,7 @@ export class IncidenciasFormComponent implements OnInit {
 
       )
   }
+
 
 
 

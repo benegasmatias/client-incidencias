@@ -1,79 +1,86 @@
- 
-  <h3>Listado Inventarios</h3>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <input type="text" autocomplete="off" class="form-control" name="filterPost" placeholder="Buscar por Oficina, Impresora"
-          [(ngModel)]="filterPost">
+<h3 class="titulo">Listado Inventarios</h3>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" autocomplete="off" class="form-control" name="filterPost"
+        placeholder="Buscar por Oficina, Impresora" [(ngModel)]="filterPost">
 
-      </div>
     </div>
-    <div *ngIf="habilitarEdit===false" class="col-md-6">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary "  data-toggle="modal"
-        data-target="#exampleModalCenter">
-        Habilitar edicion
-      </button>
-    </div>
-    <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
   </div>
+  <div *ngIf="habilitarEdit===false" class="col-md-6">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter">
+      Habilitar edicion
+    </button>
+  </div>
+  <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
+</div>
 
-      <table class=" table  w-auto " >
-        <thead >
-          <tr id="header">
-            <th>id</th>
-            <th>Oficina</th>
-            <th>Gabinete</th>
-            <th>DireccionIP</th>
-            <th>Computadora</th>
-            <th>Microprocesador</th>
-            <th>Placamadre</th>
-            <th>Ram</th>
-            <th>Disco</th>
-            <th>Monitor</th>
-            <th>Monitor Numero de serie</th>
-            <th>Impresora</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let post of inventarios | fil:filterPost ; index as i">
-            <td >{{i+1}}</td>
-            <td>{{post.name_office| uppercase}}</td>
-            <td>{{post.name_cabinet|uppercase}}</td>
-            <td>{{post.ip_address}}</td>
-            <td>{{post.name_computer}}</td>
-            <td>{{post.microprocessor}}</td>
-            <td>{{post.name_motherboard}}</td>
-            <td>{{post.capacity_ram}}</td>
-            <td>{{post.capacity_disk}}</td>
-            <td>{{post.name_monitor}}</td>
-            <td>{{post.number_serie}}</td>
-            <td>{{post.name_printer}}</td>
-            
-            
-              <!--Boton o botones para ir a formulario de Inventarios-->
-              <td *ngIf="habilitarEdit">
-                <button *ngIf='post.id_cabinet!= null' class="btn text-white bg-dark"
-                  [routerLink]="['../editinventario', post.id_office, post.name_cabinet, post.name_computer, post.id_ram,post.id_disk, post.id_microprocessor, post.id_motherboard,post.id_cabinet,post.ip_address]">Editar</button>
-                <button *ngIf='post.id_laptop != null'
-                  class="btn text-white bg-dark"
-                  [routerLink]="['editinventario', post.id_office, post.name_cabinet, post.id_laptop, post.id_ram, post.id_disk]">Editar</button>
-                <button *ngIf='post.id_monitor != null'
-                  class="btn text-white bg-dark"
-                  [routerLink]="['editinventario', post.id_office, post.name_monitor,post.id_monitor,post.number_serie]">Editar</button>
-                  <button *ngIf='post.id_printer != null'
-                  class="btn text-white bg-dark"
-                  [routerLink]="['editinventarioi', post.id_office, post.name_printer,post.id_printer,post.id_toner,post.number_printer]">Editar</button>
-              </td>
-            
-          </tr>
-        </tbody>
-      </table>
-    
-  
-    
-  
+<table class=" table ">
+  <thead>
+    <tr id="header">
+      <th>id</th>
+      <th>Oficina</th>
+      <th>Gabinete</th>
+      <th>DireccionIP</th>
+      <th>Computadora</th>
+      <th>Microprocesador</th>
+      <th>Placamadre</th>
+      <th>Ram</th>
+      <th>Disco</th>
+      <th>Monitor</th>
+      <th>Monitor Numero de serie</th>
+      <th>Impresora</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of inventarios | fil:filterPost ; index as i">
+      <td>{{i+1}}</td>
+      <td>{{post.name_office| uppercase}}</td>
+      <td>{{post.name_cabinet|uppercase}}</td>
+      <td>{{post.ip_address}}</td>
+      <td>{{post.name_computer}}</td>
+      <td>{{post.microprocessor}}</td>
+      <td>{{post.name_motherboard}}</td>
+      <td>{{post.capacity_ram}}</td>
+      <td>{{post.capacity_disk}}</td>
+      <td>{{post.name_monitor}}</td>
+      <td>{{post.number_serie}}</td>
+      <td>{{post.name_printer}}</td>
+
+
+      <!--Boton o botones para ir a formulario de Inventarios-->
+      <td *ngIf="habilitarEdit">
+
+        <div class="col-md-6">
+          <button *ngIf='post.id_cabinet!= null' class="btn text-white bg-dark"
+            [routerLink]="['../editinventario', post.id_office, post.name_cabinet, post.name_computer, post.id_ram,post.id_disk, post.id_microprocessor, post.id_motherboard,post.id_cabinet,post.ip_address]">Editar</button>
+          <button *ngIf='post.id_laptop != null' class="btn text-white bg-dark"
+            [routerLink]="['editinventario', post.id_office, post.name_cabinet, post.id_laptop, post.id_ram, post.id_disk]">Editar</button>
+          <button *ngIf='post.id_monitor != null' class="btn text-white bg-dark"
+            [routerLink]="['editinventario', post.id_office, post.name_monitor,post.id_monitor,post.number_serie]">Editar</button>
+          <button *ngIf='post.id_printer != null' class="btn text-white bg-dark"
+            [routerLink]="['editinventarioi', post.id_office, post.name_printer,post.id_printer,post.id_toner,post.number_printer]">Editar</button>
+        </div>
+        <div class="col-md-6">
+
+          <button class="btn btn-danger mt-3">
+            Borrar
+          </button>
+        </div>
+
+
+
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+
+
+
 
 
 
@@ -100,8 +107,8 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
           </div>
-          <input  type="password" class="form-control" aria-label="Default" autocomplete = "new-password" name="password" [(ngModel)]="user.password"
-            aria-describedby="inputGroup-sizing-default">
+          <input type="password" class="form-control" aria-label="Default" autocomplete="new-password" name="password"
+            [(ngModel)]="user.password" aria-describedby="inputGroup-sizing-default">
         </div>
       </div>
       <div class="modal-footer">

@@ -4,3 +4,7 @@ export class Notebook {
     ram_id:""
     disk_id:""
 }
+export class NotebookForOffice
+{   id_laptop:string
+    name_laptop: string
+}

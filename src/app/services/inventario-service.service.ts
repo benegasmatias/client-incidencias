@@ -33,6 +33,8 @@ export class InventarioServiceService {
 
 
   }
+  
+
 
   getPrinters(){
     return this.http.get(`${this.API_URI}/Printers/index.json`);

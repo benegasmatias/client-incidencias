@@ -185,9 +185,7 @@
               <select class="custom-select contenido" id="inputGrouptoner" name="toner" [(ngModel)]="printer.toner_id">
                 <option *ngFor="let toner  of toners" [value]="toner.id_toner">{{toner.toner_model}}</option>
               </select>
-              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modalToner">
-                <i class="fas fa-plus-circle"></i>
-              </button>
+            
             </div>
           </div>
         </div>
@@ -219,6 +217,8 @@
           (click)="GuardarEquipo()">{{button}}</button>
         <button *ngIf="buttonEdit !='' && button==='' " class="btn btn-primary d-block mx-auto contenido"
           (click)='editarIinventario()'>{{buttonEdit}}</button>
+
+        
 
 
 
@@ -349,39 +349,4 @@
     </div>
   </div>
 
-  <!--Toner-->
-  <div class="modal fade" id="modalToner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle contenido">Agregar Toner</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" placeholder="Modelo" aria-label="Modelo de Toner"
-              name="modeloToner" [(ngModel)]="toner.toner_model">
-            <div class="input-group-append">
-              <span class="input-group-text contenido">TN319CCOMP</span>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" placeholder="Tipo" aria-label="Tipo de Toner"
-              name="tipoToner" [(ngModel)]="toner.type">
-            <div class="input-group-append">
-              <span class="input-group-text contenido">TN319CCOMP</span>
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary contenido" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary contenido" (click)="addToner()">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  

@@ -16,7 +16,7 @@ export class TonerService {
     return this.http.get(`${this.API_URI}/DeparturesToners/index.json`);
   }
 
-  EditToner(id,toner:Tonerstock){
+  EditToner(id,toner){
     return this.http.patch(`${this.API_URI}/Toners/edit/${id}.json`,toner);
   }
 
@@ -31,7 +31,10 @@ export class TonerService {
 
   addToner(toner:Toner){
   
-    return this.http.post(`${this.API_URI}/toners/add.json`,toner);
+    return this.http.post(`${this.API_URI}/Toners/add.json`,toner);
+  }
+  deleteToner(id){
+    return this.http.delete(`${this.API_URI}/Toners/delete/${id}.json`);
   }
 
 

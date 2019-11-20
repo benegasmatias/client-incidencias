@@ -41,7 +41,6 @@
               </div>
               <select class="custom-select" id="inputGroupOfficeUser" [(ngModel)]="user.office_id"
                 formControlName="id_office">
-                <option selected></option>
                 <option *ngFor="let office of officesList" [value]="office.id_office">{{office.name_office}}
                 </option>
               </select>

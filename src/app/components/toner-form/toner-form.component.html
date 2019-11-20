@@ -25,8 +25,8 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text contenido" for="inputGroupTechnicals">Tipo</label>
                 </div>
-                <select class="custom-select contenido" id="selectTypeToner" required formControlName="tipoToner" [(ngModel)]="toner.type">
-                  <option *ngFor="let type of type_toners" value="type.id">{{type.type}}
+                <select class="custom-select contenido" id="selectTypeToner" required formControlName="tipoToner" [(ngModel)]="toner.type_id">
+                  <option *ngFor="let type of type_toners" [value]="type.id_type">{{type.type}}
                   </option>
     
                 </select>

@@ -9,12 +9,14 @@ import{FormsModule}from '@angular/forms'
 import { AppComponent } from './app.component';
 import {NeedAuthGuard} from './NeedAuthGuard';
 import { AppRoutingModule } from './app-routing.module';
+import { SalidaInventarioFormComponent } from './components/salida-inventario-form/salida-inventario-form.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SalidaInventarioFormComponent
 
   ],
   imports: [
