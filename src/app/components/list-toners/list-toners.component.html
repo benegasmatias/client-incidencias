@@ -1,13 +1,16 @@
- 
+
   <h3 class="titulo">Listado de Toners</h3>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
+      
+        <button class="btn" (click)="exportexcel()">Exportar Excel</button>
         <input type="text" class="form-control contenido" name="filterTonerStock" placeholder="Buscar por Modelo de toner"
           [(ngModel)]="filterTonerStock">
 
       </div>
     </div>
+   
     <div *ngIf="habilitarEdit===false" class="col-md-6">
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary contenido "  data-toggle="modal"
@@ -18,7 +21,7 @@
     <div class="alert alert-danger contenido" *ngIf="Nologged">Usuario o contraseña Erronea</div>
   </div>
 
-      <table class="table table-striped " >
+      <table class="table table-striped " id="tablaToner" >
         <thead >
           <tr class="contenido" id="header">
             <th>id</th>
@@ -150,6 +153,10 @@ aria-hidden="true">
   </div>
 </div>
 </div>
+
+<!--Excel-->
+
+
     
   
     

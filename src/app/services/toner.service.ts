@@ -16,7 +16,8 @@ export class TonerService {
     return this.http.get(`${this.API_URI}/DeparturesToners/index.json`);
   }
 
-  EditToner(id,toner){
+  EditToner(id,toner:Toner){
+    
     return this.http.patch(`${this.API_URI}/Toners/edit/${id}.json`,toner);
   }
 

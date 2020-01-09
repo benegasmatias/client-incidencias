@@ -1,7 +1,7 @@
-import { Gabinete } from './gabinete';
+import { GabineteOUT } from './gabinete';
 
 describe('Gabinete', () => {
   it('should create an instance', () => {
-    expect(new Gabinete()).toBeTruthy();
+    expect(new GabineteOUT()).toBeTruthy();
   });
 });

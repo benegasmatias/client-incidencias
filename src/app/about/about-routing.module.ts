@@ -9,6 +9,7 @@ import { ListInventariosComponent } from '../components/list-inventarios/list-in
 import { ListTonersComponent } from '../components/list-toners/list-toners.component';
 import { ListEntregaTonersComponent } from '../components/list-entrega-toners/list-entrega-toners.component';
 import { TonerFormComponent } from '../components/toner-form/toner-form.component';
+import{AgendaComponent} from '../components/agenda/agenda.component'
 import {authlg} from './authlog'
 
 
@@ -73,7 +74,12 @@ const routes: Routes = [
       {
         path:'list/edit/:id/:technical/:problem/:office/:user',
         component: IncidenciasFormComponent
-      } 
+      },
+      {
+        path:'agenda',
+        component: AgendaComponent
+      }
+    
 ]
 ,
     canActivate:[authlg]

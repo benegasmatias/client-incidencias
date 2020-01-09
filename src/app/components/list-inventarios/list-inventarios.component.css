@@ -88,19 +88,17 @@
     tr:nth-child(even) {
       background: rgba(5, 108, 204, 0.342);
       }
-      td {
-        /* Behave  like a "row" */
-   color: floralwhite;
-      }
+     
       table{
 	
-        
-        
-        width:100%;
-      
+        overflow-x: auto;
+        width:100%x;
+
         text-align: center;
-        display: block;
+       
         margin: 0 0 0;
         }
+
+      
 
       

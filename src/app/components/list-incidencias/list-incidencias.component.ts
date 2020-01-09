@@ -1,21 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-
-
-//component
-
-
 //service
 import {IncidenciasService} from '../../services/incidencias.service';
-
-//32132132
 import {LoginService} from '../../services/login.service';
 
-
 //models
-
 import { Incidencia } from 'src/app/models/incidencia';
-//212312313213123
-
 import{LoginUser} from '../../models/login-user'
 
 
@@ -30,11 +19,15 @@ export class ListIncidenciasComponent implements OnInit {
 
 
  incidencias:Incidencia[];
- filterPost="";
+
  incidenciaEdit:Incidencia;
-
-
+//parametros para pasar a la pipe
+ desde='';
+ hasta='';
+ filterPost='';
+//habilita edicion
  habilitarEdit=false;
+
  Nologged=false;
 
  user:LoginUser=new LoginUser();
@@ -46,11 +39,10 @@ export class ListIncidenciasComponent implements OnInit {
 
   ngOnInit() {
 
-  
     this.getIncidencias();
     this.habilitarEdit=false;
-    this.Nologged=false  ;
-    this.filterPost=" ";
+    this.Nologged=false;
+    
     
   }
 
@@ -59,6 +51,7 @@ export class ListIncidenciasComponent implements OnInit {
     this.incidenciasService.getIncidencias().subscribe(
       (data)=>{
         this.incidencias=data["incidencias"]
+        console.log(data)
       },e=>console.log(e),
       ()=>{}
     )
@@ -72,6 +65,7 @@ export class ListIncidenciasComponent implements OnInit {
       datas=>{
         this.habilitarEdit=true; 
         this.Nologged=false     
+       
       },
       err=>this.Nologged=true,
       ()=>{}

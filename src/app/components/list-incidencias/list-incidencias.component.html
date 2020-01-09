@@ -1,114 +1,131 @@
+<h3 class="titulo">Listado incidencias</h3>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <input class="contenido" name="busqueda" id="frmNameCC" class="form-control"
+        placeholder="Buscar por Oficina, Tecnico, Problema" [(ngModel)]="filterPost">
 
 
-
-  
-    <h3 class="titulo">Listado incidencias</h3>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <input  class="contenido"   name="busqueda"  id="frmNameCC" class="form-control" placeholder="Buscar por Oficina, Tecnico, Problema"
-            [(ngModel)]="filterPost">
-
-
-        </div>
-      </div>
-      <div *ngIf="habilitarEdit===false" class="col-md">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-          data-target="#exampleModalCenter">
-          Habilitar edicion
-        </button>
-    
-      </div>
-      <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
     </div>
+  </div>
+  <!--Boton para habilitar edicion-->
 
-        <table class="table  w-auto">
-           
-          <thead >
-            <tr>
-              <th>id</th>
-              <th>Oficina</th>
-              <th>Tecnico</th>
-              <th>Usuario</th>
-              <th>Problema</th>
-              <th>Descripcion</th>
-              <th>Fecha de atencion</th>
-              <th>Expediente</th>
-              <th *ngIf="habilitarEdit">   </th>
-            </tr>
-          </thead>
-          <tbody class="text-dark text-capitalize">
-            <tr *ngFor="let post of incidencias | filter:filterPost ; index as i">
-              <td>{{i+1}}</td>
-              <td >{{post.name_office}}</td>
-              <td>{{post.name_tec}}</td>
-              <td>{{post.name_user}}</td>
-              <td>{{post.name_problem}}</td>
-              <td>{{post.description}}</td>
-              <td>{{post.date_support | date:"MM/dd/yy"}}</td>
-              <td>{{post.proccedings_support | json}}</td>
+  <div *ngIf="habilitarEdit===false" class="col-6">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      Habilitar edicion
+    </button>
 
+  </div>
+<!--Filtrado desde hasta por fecha-->
+  <div class="col-6">
+    <div class="row">
 
-              <td *ngIf="habilitarEdit">
+        <div class="mr-3">
 
-
-                <button *ngIf='post.proccedings_support!==null' class="btn text-white bg-dark"
-                  [routerLink]="['edit', post.id_support, post.proccedings_support, post.technical_id, post.problem_id, post.office_id, post.user_id, post.description]">Editar</button>
-                <button *ngIf='post.proccedings_support === null && post.description!==null'
-                  class="btn text-white bg-dark"
-                  [routerLink]="['edit', post.id_support, post.technical_id, post.problem_id, post.office_id, post.user_id, post.description]">Editar</button>
-                <button *ngIf='post.proccedings_support === null && post.description===null'
-                  class="btn text-white bg-dark"
-                  [routerLink]="['edit', post.id_support, post.technical_id, post.problem_id, post.office_id, post.user_id]">Editar</button>
-
-              </td>
-            </tr>
-          </tbody>
-           
-        </table>
-      
-
-     
-    
+            <div class="input-group-prepend mb-3">
+                <label class="input-group-text contenido" for="desde">Desde</label>
   
+                <input  type="date"  class="contenido"  id="desde" [(ngModel)]="desde" > 
+              </div> 
+        </div>
+       <div>
+          <div class="input-group-prepend mb-3">
+              <label class="input-group-text contenido" for="hasta">Hasta</label>
+
+              <input  type="date"  class="contenido"  id="hasta" [(ngModel)]="hasta" name="hasta"> 
+            </div> 
+        </div>
+   
+  
+     
+      
+    </div>
+  </div>
+  <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
+</div>
+
+<table class="table  w-auto">
+
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Oficina</th>
+      <th>Tecnico</th>
+      <th>Usuario</th>
+      <th>Problema</th>
+      <th>Descripcion</th>
+      <th>Fecha de atencion</th>
+      <th>Expediente</th>
+      <th *ngIf="habilitarEdit"> </th>
+    </tr>
+  </thead>
+  <tbody class="text-dark text-capitalize">
+    <tr *ngFor="let post of incidencias | filter:filterPost:desde:hasta;  index as i">
+      <td>{{i+1}}</td>
+      <td>{{post.name_office}}</td>
+      <td>{{post.name_tec}}</td>
+      <td>{{post.name_user}}</td>
+      <td>{{post.name_problem}}</td>
+      <td>{{post.description}}</td>
+      <td>{{post.date_support | date:"MM/dd/yy"}}</td>
+      <td>{{post.proccedings_support | json}}</td>
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Verificacion</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Default" name="username" [(ngModel)]="user.username"
-              aria-describedby="inputGroup-sizing-default">
+      <td *ngIf="habilitarEdit">
+
+
+        <button *ngIf='post.proccedings_support!==null' class="btn text-white bg-dark"
+          [routerLink]="['edit', post.id_support, post.proccedings_support, post.technical_id, post.problem_id, post.office_id, post.user_id, post.description]">Editar</button>
+        <button *ngIf='post.proccedings_support === null && post.description!==null' class="btn text-white bg-dark"
+          [routerLink]="['edit', post.id_support, post.technical_id, post.problem_id, post.office_id, post.user_id, post.description]">Editar</button>
+        <button *ngIf='post.proccedings_support === null && post.description===null' class="btn text-white bg-dark"
+          [routerLink]="['edit', post.id_support, post.technical_id, post.problem_id, post.office_id, post.user_id]">Editar</button>
+
+      </td>
+    </tr>
+  </tbody>
+
+</table>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Verificacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
           </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
-            </div>
-            <input type="password" class="form-control" autocomplete = "new-password" aria-label="Default" name="password" [(ngModel)]="user.password"
-              aria-describedby="inputGroup-sizing-default">
+          <input type="text" class="form-control" aria-label="Default" name="username" [(ngModel)]="user.username"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
           </div>
+          <input type="password" class="form-control" autocomplete="new-password" aria-label="Default" name="password"
+            [(ngModel)]="user.password" aria-describedby="inputGroup-sizing-default">
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="loginEdit()" data-dismiss="modal">Confirmar
-            Acceso</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="loginEdit()" data-dismiss="modal">Confirmar
+          Acceso</button>
       </div>
     </div>
   </div>
-
-
-
+</div>

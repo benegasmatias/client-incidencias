@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterToners implements PipeTransform {
   
   transform(value: any, arg:string): any {
-    if (arg === '' || arg.length < 3) 
+    if (arg === '' || arg.length < 1) 
       return value;
       
     const resultPosts = [];

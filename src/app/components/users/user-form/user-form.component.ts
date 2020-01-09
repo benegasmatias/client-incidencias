@@ -87,9 +87,32 @@ export class UserFormComponent implements OnInit, OnChanges {
  
   //Este metodo llama al servicio de user para poder almacenar el nuevo usuario
   private saveUserFromService(){
+     
+    this.userService.viewUserForName(this.user.name_user,this.offic).subscribe(
+      (data)=>{
+        console.log(data)
+
+       if(!data['user'].length){
+         this.guardaUsuario();
+       }else
+       alert("El usuario ya existe!");
+         
+    },
+      ()=>{ }
+    )
+    // si el usuario no existe se podra agregar
+    /*  if(verifica==true){
+    }
+*/
+
+  }
+
+  guardaUsuario(){
     this.userService.addUser(this.user)
     .subscribe(
       (response:HttpResponse<Response>)=>{
+        this.user =new Users();
+        alert("Usuario Guardado.");
         this.router.navigateByUrl("incidencia/add");
         this.resp=response.body;
         if(response.status==200){
@@ -107,8 +130,6 @@ export class UserFormComponent implements OnInit, OnChanges {
           console.log('Server-side error')
         }
       }
-
-    
     )
   }
 

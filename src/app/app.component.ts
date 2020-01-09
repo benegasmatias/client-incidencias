@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isLogged=false;
-
+  
   constructor(){
     if(localStorage.getItem('accessToken'))
     this.isLogged=true;

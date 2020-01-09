@@ -1,3 +1,5 @@
+
+<div class="table-responsive-lg">
 <h3 class="titulo">Listado Inventarios</h3>
 <div class="row">
   <div class="col-md-6">
@@ -16,21 +18,24 @@
   <div class="alert alert-danger" *ngIf="Nologged">Usuario o contraseña Erronea</div>
 </div>
 
-<table class="table">
+
+
+<table class="table  w-auto table-fixed ">
   <thead>
     <tr >
       <th>id</th>
       <th>Oficina</th>
-      <th>Gabinete</th>
-      <th>DireccionIP</th>
-      <th>Computadora</th>
-      <th>Microprocesador</th>
-      <th>Placamadre</th>
+      <th> <button class="btn" (click)="ocultarGabinet()">Gabinete</button> </th>
+      <th [hidden]="!hig">DireccionIP</th>
+      <th [hidden]="!hig">Computadora</th>
+      <th [hidden]="!hig">Microprocesador</th>
+      <th [hidden]="!hig">Placamadre</th>
       <th>Ram</th>
       <th>Disco</th>
-      <th>Monitor</th>
-      <th>Monitor Numero de serie</th>
-      <th>Impresora</th>
+      <th> <button class="btn" (click)="ocultarMonitor()">Monitor</button></th>
+      <th [hidden]="!him">M nº serie</th>
+      <th><button class="btn" (click)="ocultarPrint()">Impresora</button></th>
+      <th [hidden]="!hip">I nº serie</th>
       <th *ngIf="habilitarEdit">   </th>
     </tr>
   </thead>
@@ -39,16 +44,16 @@
       <td>{{i+1}}</td>
       <td>{{post.name_office| uppercase}}</td>
       <td>{{post.name_cabinet|uppercase}}</td>
-      <td>{{post.ip_address}}</td>
-      <td>{{post.name_computer}}</td>
-      <td>{{post.microprocessor}}</td>
-      <td>{{post.name_motherboard}}</td>
+      <td [hidden]="!hig">{{post.ip_address}}</td>
+      <td [hidden]="!hig">{{post.name_computer}}</td>
+      <td [hidden]="!hig">{{post.microprocessor}}</td>
+      <td [hidden]="!hig">{{post.name_motherboard}}</td>
       <td>{{post.capacity_ram}}</td>
       <td>{{post.capacity_disk}}</td>
       <td>{{post.name_monitor}}</td>
-      <td>{{post.number_serie}}</td>
+      <td [hidden]="!him">{{post.number_serie}}</td>
       <td>{{post.name_printer}}</td>
-
+      <td [hidden]="!hip">{{post.number_printer}}</td>
 
       <!--Boton o botones para ir a formulario de Inventarios-->
       <td *ngIf="habilitarEdit">
@@ -75,6 +80,7 @@
 </table>
 
 
+</div>
 
 
 

@@ -6,7 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AboutRoutingModule } from './about-routing.module';
 import{FormsModule,ReactiveFormsModule} from '@angular/forms';
 
-
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
 //components
 import { NavigationComponent } from '../components/navigation/navigation.component';
 import { IncidenciasFormComponent } from '../components/incidencias-form/incidencias-form.component';
@@ -18,6 +21,8 @@ import {ListTonersComponent} from '../components/list-toners/list-toners.compone
 import {InventoriesFormComponent} from '../components/inventories-form/inventories-form.component'
 import { ListEntregaTonersComponent } from '../components/list-entrega-toners/list-entrega-toners.component';
 import{TonerFormComponent} from '../components/toner-form/toner-form.component';
+import {AgendaComponent} from '../components/agenda/agenda.component';
+
 
 
 //pipes
@@ -26,6 +31,8 @@ import { FilterInventories } from '../pipes/filterInventories';
 import {FilterToners} from '../pipes/filterToners';
 import { FilterSalToner } from '../pipes/filSalidaToner';
 import{authlg} from './authlog'
+
+
 
 
 
@@ -51,16 +58,23 @@ import{authlg} from './authlog'
     FilterToners,
     ListEntregaTonersComponent,
     FilterSalToner,
-    TonerFormComponent
+    TonerFormComponent,
+    AgendaComponent,
+   
   ],
   imports: [
     CommonModule,
     AboutRoutingModule,
     HttpClientModule,  
     FormsModule,
-    ReactiveFormsModule
-   
-    
+    ReactiveFormsModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
+
   ],providers:[authlg],
   bootstrap:[PrincipalComponent]
 })

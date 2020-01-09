@@ -25,6 +25,10 @@ export class ListInventariosComponent implements OnInit {
   filterPost=''
   habilitarEdit=false;
 
+  hig=false;
+  hip=false;
+  him=false;
+
   constructor(
     private inventarioService:InventarioServiceService,
     private loginService:LoginService) { }
@@ -52,13 +56,22 @@ export class ListInventariosComponent implements OnInit {
     )
   }
 
-
+  ocultarGabinet(){
+     this.hig = !this.hig;
+  }
+  ocultarPrint(){
+ this.hip=!this.hip;
+}
+  ocultarMonitor(){
+    this.him=!this.him;
+  }
 
   public getInventario(){
     this.inventarioService.getInventario()
     .subscribe(
       data=>
-        this.inventarios=data['inventarios']
+        {this.inventarios=data['inventarios']
+      console.log(data)}
       ,err=>console.log(err),
       ()=>{}
     )

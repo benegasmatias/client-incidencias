@@ -58,7 +58,7 @@ export class IncidenciasFormComponent implements OnInit {
 
   
   sup: Supp = new Supp();
-
+//toners
   toners: Toner[];
   tonerr: Tonerr = new Tonerr();
 
@@ -276,28 +276,29 @@ export class IncidenciasFormComponent implements OnInit {
   saveNewIncidencia() {
     let quantityToner
     let a = parseInt(this.EntregaToner.quantity_departures);
-    console.log(a)
+   
 
     if (this.sup.problem_id === '7') {
+      //busca en el arreglo toner el toner seleccionado para guardar la cantidad que tiene
       for (let i = 0; i < this.toners.length; i++) {
         if (this.toners[i].id_toner == this.EntregaToner.toner_id)
           quantityToner = this.toners[i].quantity
       }
-
+      //crea una variable con la actualizacion del toner que ingreso
       let quantityActualizado = quantityToner - a;
-
+      //si la cantidad es aceptable continua
       if (quantityActualizado >= 0) {
+        
+        this.tonerr.toner_model = this.toners[this.EntregaToner.toner_id].toner_model;
+        this.tonerr.quantity = quantityActualizado.toString();
+        this.tonerr.description="";
+        this.EntregaToner.office_id = this.incidencia.oficina;
 
-        this.tonerr.toner_model = this.toners[this.EntregaToner.toner_id].toner_model
-
-
-        this.tonerr.quantity = quantityActualizado.toString()
-        this.EntregaToner.office_id = this.incidencia.oficina
         //agrega salida de toner
         this.supportService.addSalida(this.EntregaToner).
           subscribe(
             () => {
-
+              this.EntregaToner= new SalidaToner();
             },
             () => { },
             () => { }

@@ -5,6 +5,7 @@ import { LoginService } from '../../services/login.service'
 import { LoginUser } from '../../models/login-user';
 import { Router } from '@angular/router';
 import { typesToners } from 'src/app/models/types_toners';
+import * as XLSX from 'xlsx'; 
 
 
 @Component({
@@ -14,12 +15,14 @@ import { typesToners } from 'src/app/models/types_toners';
 })
 export class ListTonersComponent implements OnInit {
 
+  fileName= 'ExcelTores.xlsx';
+
   TonerStock: Tonerstock[]
   typesToner: typesToners[]
 
   toner: Tonerr = new Tonerr()
 
-  filterTonerStock = ' ';
+  filterTonerStock = '';
   user = new LoginUser();
   Nologged = false;
   habilitarEdit = false;
@@ -96,5 +99,22 @@ export class ListTonersComponent implements OnInit {
         this.getTonerStock();
       })
   }
+
+  //Excel
+  exportexcel(): void 
+  {
+     /* table id is passed over here */   
+     let element = document.getElementById('tablaToner'); 
+     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+     /* generate workbook and add the worksheet */
+     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+     /* save to file */
+     XLSX.writeFile(wb, this.fileName);
+    
+  }
+
 
 }

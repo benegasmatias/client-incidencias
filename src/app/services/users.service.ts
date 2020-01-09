@@ -27,4 +27,7 @@ export class UsersService {
   showUsersForOffice(id:number){
     return this.http.get(`${this.API_URI}/Users/getUsersForOffices/${id}.json`);
   }
+  viewUserForName(name,office){
+    return this.http.get(`${this.API_URI}/Users/viewUserForName/${name}/${office}.json`);
+  }
 }

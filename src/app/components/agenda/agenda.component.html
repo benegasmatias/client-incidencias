@@ -1,0 +1,262 @@
+
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Previous
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+       
+      >
+        Today
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Next
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
+      >
+        Month
+      </div>
+   
+    
+       
+    </div>
+  </div>
+</div>
+<br />
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+   
+  >
+  </mwl-calendar-month-view>
+</div>
+
+<!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+
+<br /><br /><br />
+
+<h3>
+  Edit events
+  <button class="btn btn-primary pull-right" (click)="addEvent()">
+    Add new
+  </button>
+  <div class="clearfix"></div>
+</h3>
+
+<div class="table-responsive">
+ 
+  <table class="table table-bordered">
+    
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Primary color</th>
+        <th>Secondary color</th>
+        <th>Starts at</th>
+        <th>Ends at</th>
+        <th>options</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let event of events">
+       
+        <td>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="event.title"
+            (keyup)="refresh.next()"
+          
+          />
+        </td>
+        <td>
+          <input
+            type="color"
+            [(ngModel)]="event.color.primary"
+            (keyup)="refresh.next()"
+     
+          />
+        </td>
+        <td>
+          <input
+            type="color"
+            [(ngModel)]="event.color.secondary"
+            (keyup)="refresh.next()"
+      
+         
+          />
+        </td>
+        <td>
+          <input
+          class="form-control"
+            type="text"
+            mwlFlatpickr
+          
+            [(ngModel)]="event.start"
+            (ngModelChange)="refresh.next()"
+
+            [altInput]="true"
+            [convertModelValue]="true"
+            [enableTime]="true"
+            dateFormat="Y-m-dTH:i"
+            altFormat="F j, Y H:i"
+            placeholder="Not set"
+          />
+        </td>
+        <td>
+          <input
+            class="form-control"
+            type="text"
+            mwlFlatpickr
+            [(ngModel)]="event.end"
+            (ngModelChange)="refresh.next()"
+            [altInput]="true"
+            [convertModelValue]="true"
+            [enableTime]="true"
+            dateFormat="Y-m-dTH:i"
+            altFormat="F j, Y H:i"
+            placeholder="Not set"
+          />
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteEvent(event)">
+            Delete
+          </button>
+    
+          <button class="btn btn-success" (click)=" CambiosEvento(event)" >Guardar Cambios</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Editar Evento</h4>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Event:
+      
+      <pre>
+          <div >
+         <div>
+          <h6>Titulo:</h6>
+            <input class="form-control" name="titulo" [(ngModel)]="modalData?.event.title"  type="text">
+          </div>
+            <div class="row">
+              <div>
+                Start: 
+                <input
+                class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                
+                  [(ngModel)]="modalData?.event.start"
+                  (ngModelChange)="refresh.next()"
+
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  [enableTime]="true"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                />
+
+
+                Primary color
+                <input type="color" [(ngModel)]="modalData?.event.color.primary">
+              </div>
+              <div>
+                End: 
+                <input
+                class="form-control"
+                type="text"
+                mwlFlatpickr
+                [(ngModel)]="modalData?.event.end"
+                (ngModelChange)="refresh.next()"
+             
+                [altInput]="true"
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i"
+                altFormat="F j, Y H:i"
+                placeholder="Not set"
+              />
+
+
+              Secondary color
+                <input type="color" [(ngModel)]="modalData?.event.color.secondary">
+              </div>
+            </div>
+        
+          </div>
+       </pre>
+    
+       <div class="row">
+
+        <div class="col-6 ml-3">
+          <button class="btn btn-success" (click)=" CambiosEvento(modalData?.event)">Guardar</button>
+        </div>
+  
+        <div>
+          <button class="btn btn-danger" (click)="deleteEvent(modalData?.event)">
+            Delete
+          </button>
+        </div>
+  
+        
+  
+       </div>
+      
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">
+      Cerrar
+    </button>
+
+   
+    
+  </div>
+</ng-template>
+
+

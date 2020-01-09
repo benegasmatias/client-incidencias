@@ -1,0 +1,11 @@
+
+h3 {
+    margin: 0 0 10px;
+  }
+h6{
+  margin: 0 !important;
+}  
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+  }
